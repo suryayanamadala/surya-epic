@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Surya Epic</title>
+<style>
+  :root{
+    --bg:#0b0d10;
+    --bg-alt:#12151a;
+    --card:#161a20;
+    --border:#242a33;
+    --text:#eef1f5;
+    --muted:#8b93a1;
+    --accent:#ffcc00;
+    --accent2:#3ddc97;
+    --accent3:#ff5c5c;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--bg);
+    color:var(--text);
+    font-family:'Segoe UI',system-ui,-apple-system,Helvetica,Arial,sans-serif;
+    line-height:1.5;
+  }
+  a{color:inherit;text-decoration:none;}
+
+  /* NAV */
+  nav{
+    position:sticky;top:0;z-index:50;
+    display:flex;align-items:center;justify-content:space-between;
+    padding:16px 6vw;
+    background:rgba(11,13,16,0.85);
+    backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--border);
+  }
+  .brand{font-weight:800;letter-spacing:1px;font-size:18px;}
+  .brand span{color:var(--accent);}
+  .nav-links{display:flex;gap:28px;font-size:14px;font-weight:600;color:var(--muted);}
+  .nav-links a:hover{color:var(--text);}
+  .nav-toggle{display:none;background:none;border:none;color:var(--text);font-size:24px;cursor:pointer;}
+
+  /* HERO */
+  header.hero{
+    position:relative;
+    padding:110px 6vw 90px;
+    text-align:center;
+    overflow:hidden;
+    background:
+      radial-gradient(circle at 20% 20%, rgba(255,204,0,0.12), transparent 40%),
+      radial-gradient(circle at 80% 30%, rgba(61,220,151,0.10), transparent 40%),
+      var(--bg);
+  }
+  .eyebrow{
+    display:inline-block;
+    font-size:12px;letter-spacing:3px;text-transform:uppercase;
+    color:var(--accent2);
+    border:1px solid rgba(61,220,151,0.4);
+    padding:6px 14px;border-radius:999px;
+    margin-bottom:28px;
+  }
+  h1.headline{
+    font-size:clamp(48px,9vw,110px);
+    font-weight:900;
+    letter-spacing:2px;
+    line-height:0.95;
+    background:linear-gradient(90deg,#fff 0%,var(--accent) 50%,#fff 100%);
+    -webkit-background-clip:text;
+    background-clip:text;
+    color:transparent;
+    text-shadow:0 0 60px rgba(255,204,0,0.25);
+  }
+  .tagline{
+    margin-top:22px;
+    font-size:clamp(15px,2vw,20px);
+    color:var(--muted);
+    max-width:600px;
+    margin-left:auto;margin-right:auto;
+  }
+  .hero-links{
+    margin-top:38px;
+    display:flex;gap:16px;justify-content:center;flex-wrap:wrap;
+  }
+  .btn{
+    padding:12px 26px;border-radius:10px;font-weight:700;font-size:14px;
+    border:1px solid var(--border);
+    transition:transform .15s ease, border-color .15s ease;
+    display:inline-block;
+  }
+  .btn:hover{transform:translateY(-2px);border-color:var(--accent);}
+  .btn.primary{background:var(--accent);color:#111;border-color:var(--accent);}
+  .btn.primary:hover{border-color:var(--accent);}
+
+  /* SECTIONS */
+  main{padding:10px 6vw 80px;max-width:1200px;margin:0 auto;}
+  section{padding:70px 0;border-bottom:1px solid var(--border);}
+  section:last-of-type{border-bottom:none;}
+  .section-head{margin-bottom:36px;}
+  .section-tag{
+    font-size:12px;letter-spacing:3px;text-transform:uppercase;color:var(--muted);
+  }
+  .section-title{font-size:clamp(26px,4vw,38px);font-weight:800;margin-top:8px;}
+  .section-title .dot{color:var(--accent);}
+
+  .grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fill,minmax(260px,1fr));
+    gap:20px;
+  }
+  .card{
+    background:var(--card);
+    border:1px solid var(--border);
+    border-radius:16px;
+    padding:22px;
+    display:flex;flex-direction:column;gap:10px;
+    transition:transform .18s ease, border-color .18s ease, box-shadow .18s ease;
+  }
+  .card:hover{
+    transform:translateY(-4px);
+    border-color:var(--accent);
+    box-shadow:0 12px 30px rgba(0,0,0,0.35);
+  }
+  .card .icon{font-size:26px;}
+  .card h3{font-size:17px;font-weight:700;}
+  .card p{font-size:13px;color:var(--muted);flex-grow:1;}
+  .card .go{
+    font-size:13px;font-weight:700;color:var(--accent);
+    display:inline-flex;align-items:center;gap:6px;
+  }
+
+  #badminton .section-tag{color:var(--accent3);}
+  #desk .section-tag{color:var(--accent2);}
+  #electronics .section-tag{color:var(--accent);}
+
+  footer{
+    padding:40px 6vw;text-align:center;color:var(--muted);font-size:13px;
+    border-top:1px solid var(--border);
+  }
+  footer .brand{display:block;margin-bottom:6px;color:var(--text);}
+
+  @media (max-width:720px){
+    .nav-links{
+      position:absolute;top:100%;left:0;right:0;
+      background:var(--bg-alt);
+      flex-direction:column;
+      padding:20px 6vw;
+      gap:18px;
+      border-bottom:1px solid var(--border);
+      display:none;
+    }
+    .nav-links.open{display:flex;}
+    .nav-toggle{display:block;}
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="brand">SURYA <span>EPIC</span></div>
+  <div class="nav-links" id="navLinks">
+    <a href="#badminton">Badminton</a>
+    <a href="#desk">Desk Setup</a>
+    <a href="#electronics">Electronics</a>
+  </div>
+  <button class="nav-toggle" id="navToggle" aria-label="Toggle menu">☰</button>
+</nav>
+
+<header class="hero">
+  <div class="eyebrow">Personal Portfolio &amp; Gear Hub</div>
+  <h1 class="headline">SURYA EPIC</h1>
+  <p class="tagline">Badminton. Desk builds. Electronics. Everything I use and recommend, in one place.</p>
+  <div class="hero-links">
+    <a class="btn primary" href="#badminton">Shop My Gear</a>
+    <a class="btn" href="#desk">See My Desk</a>
+  </div>
+</header>
+
+<main>
+
+  <section id="badminton">
+    <div class="section-head">
+      <div class="section-tag">Sport</div>
+      <div class="section-title">Badminton Gear<span class="dot">.</span></div>
+    </div>
+    <div class="grid">
+      <div class="card">
+        <div class="icon">🏸</div>
+        <h3>Racket</h3>
+        <p>Add the racket you play with and why you like it.</p>
+        <a class="go" href="#" target="_blank" rel="noopener">View link →</a>
+      </div>
+      <div class="card">
+        <div class="icon">👟</div>
+        <h3>Shoes</h3>
+        <p>Court shoes — grip, comfort, notes on sizing.</p>
+        <a class="go" href="#" target="_blank" rel="noopener">View link →</a>
+      </div>
+      <div class="card">
+        <div class="icon">🎽</div>
+        <h3>Apparel</h3>
+        <p>Jerseys, shorts, sweatbands — whatever you wear to play.</p>
+        <a class="go" href="#" target="_blank" rel="noopener">View link →</a>
+      </div>
+      <div class="card">
+        <div class="icon">🧵</div>
+        <h3>Strings &amp; Grips</h3>
+        <p>Stringing tension, grip type, replacement schedule.</p>
+        <a class="go" href="#" target="_blank" rel="noopener">View link →</a>
+      </div>
+    </div>
+  </section>
+
+  <section id="desk">
+    <div class="section-head">
+      <div class="section-tag">Setup</div>
+      <div class="section-title">Desk Links<span class="dot">.</span></div>
+    </div>
+    <div class="grid">
+      <div class="card">
+        <div class="icon">🖥️</div>
+        <h3>Monitor</h3>
+        <p>Your display — size, refresh rate, why you picked it.</p>
+        <a class="go" href="#" target="_blank" rel="noopener">View link →</a>
+      </div>
+      <div class="card">
+        <div class="icon">⌨️</div>
+        <h3>Keyboard</h3>
+        <p>Switches, layout, keycaps.</p>
+        <a class="go" href="#" target="_blank" rel="noopener">View link →</a>
+      </div>
+      <div class="card">
+        <div class="icon">🖱️</div>
+        <h3>Mouse</h3>
+        <p>DPI, grip style, wired/wireless.</p>
+        <a class="go" href="#" target="_blank" rel="noopener">View link →</a>
+      </div>
+      <div class="card">
+        <div class="icon">🪑</div>
+        <h3>Chair &amp; Desk</h3>
+        <p>Standing desk, chair model, cable management.</p>
+        <a class="go" href="#" target="_blank" rel="noopener">View link →</a>
+      </div>
+    </div>
+  </section>
+
+  <section id="electronics">
+    <div class="section-head">
+      <div class="section-tag">Tech</div>
+      <div class="section-title">Electronics<span class="dot">.</span></div>
+    </div>
+    <div class="grid">
+      <div class="card">
+        <div class="icon">📱</div>
+        <h3>Phone</h3>
+        <p>What you carry, case, accessories.</p>
+        <a class="go" href="#" target="_blank" rel="noopener">View link →</a>
+      </div>
+      <div class="card">
+        <div class="icon">🎧</div>
+        <h3>Headphones</h3>
+        <p>Everyday cans or earbuds.</p>
+        <a class="go" href="#" target="_blank" rel="noopener">View link →</a>
+      </div>
+      <div class="card">
+        <div class="icon">💻</div>
+        <h3>Laptop</h3>
+        <p>Daily driver specs and why.</p>
+        <a class="go" href="#" target="_blank" rel="noopener">View link →</a>
+      </div>
+      <div class="card">
+        <div class="icon">🔌</div>
+        <h3>Accessories</h3>
+        <p>Chargers, hubs, cables, gadgets you actually use.</p>
+        <a class="go" href="#" target="_blank" rel="noopener">View link →</a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <span class="brand">SURYA EPIC</span>
+  © <span id="year"></span> · Built with care
+</footer>
+
+<script>
+  document.getElementById('year').textContent = new Date().getFullYear();
+  const toggle = document.getElementById('navToggle');
+  const links = document.getElementById('navLinks');
+  toggle.addEventListener('click', () => links.classList.toggle('open'));
+  links.querySelectorAll('a').forEach(a => a.addEventListener('click', () => links.classList.remove('open')));
+</script>
+
+</body>
+</html>
