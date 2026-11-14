@@ -6,35 +6,23 @@
 <title>Surya Epic</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;800;900&family=JetBrains+Mono:wght@400;600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
   :root{
-    --bg:#0a0d0c;
-    --bg-alt:#101513;
-    --card:#151b19;
-    --card-hi:#1b2320;
-    --border:#26332e;
-    --text:#eef1ee;
-    --muted:#94a39a;
-    --accent:#d4a24e;
-    --accent-ink:#1a1206;
-    --accent2:#3f8f72;
-    --accent3:#b5482f;
-    --grain-opacity:0.05;
-  }
-  :root[data-theme="light"]{
-    --bg:#f4efe2;
-    --bg-alt:#ece3cd;
-    --card:#fffdf6;
-    --card-hi:#fff9ec;
-    --border:#ddd0ab;
-    --text:#211c12;
-    --muted:#6b6047;
-    --accent:#a9701f;
-    --accent-ink:#fff9ec;
-    --accent2:#2a6b53;
-    --accent3:#96371f;
-    --grain-opacity:0.035;
+    --bg:#ffffff;
+    --bg-alt:#eef1fb;
+    --bg-dark:#1c1e24;
+    --bg-dark-alt:#262930;
+    --card:#ffffff;
+    --border:#e6e8f0;
+    --border-dark:#383b44;
+    --text:#1c1e24;
+    --text-on-dark:#ffffff;
+    --muted:#666b78;
+    --muted-on-dark:#a7abb8;
+    --accent:#38c172;
+    --accent-dark:#2aa860;
+    --accent-ink:#ffffff;
   }
 
   *{box-sizing:border-box;margin:0;padding:0;}
@@ -42,231 +30,186 @@
   body{
     background:var(--bg);
     color:var(--text);
-    font-family:'Inter',system-ui,-apple-system,Helvetica,Arial,sans-serif;
+    font-family:'Plus Jakarta Sans',system-ui,-apple-system,Helvetica,Arial,sans-serif;
     line-height:1.5;
-    transition:background .25s ease, color .25s ease;
+    -webkit-font-smoothing:antialiased;
   }
   a{color:inherit;text-decoration:none;}
-  .mono{font-family:'JetBrains Mono',monospace;}
-
-  /* subtle paper-grain texture over everything */
-  body::before{
-    content:'';
-    position:fixed;inset:0;
-    pointer-events:none;z-index:9999;
-    opacity:var(--grain-opacity);
-    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-  }
 
   /* NAV */
+  .nav-spacer{height:96px;}
   nav{
-    position:sticky;top:0;z-index:50;
+    position:fixed;top:16px;left:50%;transform:translateX(-50%);
+    z-index:100;width:calc(100% - 32px);max-width:1140px;
     display:flex;align-items:center;justify-content:space-between;
-    padding:16px 6vw;
-    background:color-mix(in srgb, var(--bg) 85%, transparent);
-    backdrop-filter:blur(10px);
-    border-bottom:1px solid var(--border);
+    background:rgba(28,30,36,0.92);
+    backdrop-filter:blur(14px);
+    border-radius:999px;
+    padding:10px 12px 10px 22px;
+    box-shadow:0 12px 30px rgba(16,18,24,0.22);
   }
   .brand{
-    font-family:'Cinzel',serif;
-    font-weight:800;letter-spacing:2px;font-size:17px;
-    display:flex;align-items:center;gap:8px;
+    font-weight:800;letter-spacing:-0.01em;font-size:16px;color:#fff;
+    display:flex;align-items:center;gap:10px;
   }
-  .brand .compass{width:20px;height:20px;flex-shrink:0;}
+  .brand .badge{
+    width:28px;height:28px;border-radius:9px;background:var(--accent);
+    display:flex;align-items:center;justify-content:center;flex-shrink:0;
+  }
+  .brand .badge svg{width:15px;height:15px;color:#0d1a12;}
   .brand span{color:var(--accent);}
-  .nav-right{display:flex;align-items:center;gap:26px;}
-  .nav-links{display:flex;gap:26px;font-size:12px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);}
-  .nav-links a{font-family:'JetBrains Mono',monospace;}
-  .nav-links a:hover{color:var(--accent);}
-  .socials{display:flex;gap:14px;align-items:center;}
-  .socials a{color:var(--muted);display:flex;transition:color .15s ease;}
-  .socials a:hover{color:var(--accent);}
-  .socials svg{width:18px;height:18px;}
-
-  .theme-toggle{
-    width:38px;height:38px;border-radius:50%;
-    border:1px solid var(--border);
-    background:var(--card);
-    display:flex;align-items:center;justify-content:center;
-    cursor:pointer;color:var(--text);
-    transition:border-color .15s ease, transform .15s ease;
+  .nav-right{display:flex;align-items:center;gap:18px;}
+  .nav-links{display:flex;gap:26px;font-size:14px;font-weight:500;color:rgba(255,255,255,0.82);}
+  .nav-links a:hover{color:#fff;}
+  .socials{display:flex;gap:8px;align-items:center;}
+  .socials a{
+    width:34px;height:34px;border-radius:50%;background:rgba(255,255,255,0.08);
+    display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,0.75);
+    transition:background .15s ease, color .15s ease;
   }
-  .theme-toggle:hover{border-color:var(--accent);transform:rotate(20deg);}
-  .theme-toggle svg{width:18px;height:18px;}
-  .theme-toggle .sun{display:none;}
-  :root[data-theme="light"] .theme-toggle .moon{display:none;}
-  :root[data-theme="light"] .theme-toggle .sun{display:block;}
-
-  .nav-toggle{display:none;background:none;border:none;color:var(--text);font-size:22px;cursor:pointer;}
+  .socials a:hover{background:rgba(255,255,255,0.16);color:#fff;}
+  .socials svg{width:16px;height:16px;}
+  .nav-toggle{display:none;background:none;border:none;color:#fff;font-size:20px;cursor:pointer;padding:4px 8px;}
 
   /* HERO */
   header.hero{
-    position:relative;
-    padding:130px 6vw 100px;
+    position:relative;overflow:hidden;
+    background:var(--bg-dark);
+    padding:150px 6vw 110px;
     text-align:center;
-    overflow:hidden;
-    background:var(--bg);
   }
-  .topo{
-    position:absolute;inset:0;
-    z-index:0;
-    opacity:0.35;
-    pointer-events:none;
+  .glow{
+    position:absolute;border-radius:50%;filter:blur(70px);pointer-events:none;opacity:0.55;
   }
-  :root[data-theme="light"] .topo{opacity:0.25;}
-  .hero-inner{position:relative;z-index:1;}
+  .glow.g1{width:460px;height:460px;background:var(--accent);top:-180px;left:-120px;}
+  .glow.g2{width:380px;height:380px;background:#3f6bd6;bottom:-160px;right:-100px;opacity:0.35;}
+  .hero-inner{position:relative;z-index:1;max-width:780px;margin:0 auto;}
 
   .eyebrow{
-    display:inline-flex;align-items:center;gap:10px;
-    font-family:'JetBrains Mono',monospace;
-    font-size:11px;letter-spacing:4px;text-transform:uppercase;
-    color:var(--accent2);
-    border:1px solid var(--accent2);
-    padding:8px 16px;border-radius:999px;
-    margin-bottom:32px;
+    font-size:13px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;
+    color:var(--accent);margin-bottom:22px;display:block;
   }
-  .eyebrow::before, .eyebrow::after{content:'✦';font-size:10px;}
 
   h1.headline{
-    font-family:'Cinzel',serif;
-    font-size:clamp(52px,10vw,120px);
-    font-weight:900;
-    letter-spacing:6px;
-    line-height:1;
-    color:var(--text);
-    text-shadow:0 0 50px color-mix(in srgb, var(--accent) 35%, transparent);
+    font-size:clamp(44px,7.5vw,86px);
+    font-weight:800;letter-spacing:-0.02em;line-height:1.04;color:#fff;
   }
-  h1.headline .epic{
-    display:block;
-    background:linear-gradient(90deg, var(--accent3) 0%, var(--accent) 50%, var(--accent3) 100%);
-    -webkit-background-clip:text;background-clip:text;color:transparent;
-  }
+  h1.headline .epic{color:var(--accent);}
 
   .tagline{
-    margin-top:28px;
-    font-size:clamp(15px,2vw,19px);
-    color:var(--muted);
-    max-width:620px;
-    margin-left:auto;margin-right:auto;
+    margin-top:26px;font-size:clamp(16px,2vw,19px);color:var(--muted-on-dark);
+    max-width:620px;margin-left:auto;margin-right:auto;line-height:1.65;
   }
-  .tagline strong{color:var(--text);font-weight:600;}
 
-  .hero-links{
-    margin-top:40px;
-    display:flex;gap:16px;justify-content:center;flex-wrap:wrap;
-  }
+  .hero-links{margin-top:38px;display:flex;gap:14px;justify-content:center;flex-wrap:wrap;}
+
   .btn{
-    padding:13px 28px;border-radius:4px;font-weight:600;font-size:13px;
-    letter-spacing:1.5px;text-transform:uppercase;
-    font-family:'JetBrains Mono',monospace;
-    border:1px solid var(--border);
-    transition:transform .15s ease, border-color .15s ease, background .15s ease;
-    display:inline-block;
+    display:inline-flex;align-items:center;justify-content:center;gap:8px;
+    padding:14px 28px;border-radius:999px;font-weight:600;font-size:14.5px;
+    transition:transform .15s ease, box-shadow .15s ease, background .15s ease;
+    border:none;cursor:pointer;
   }
-  .btn:hover{transform:translateY(-2px);border-color:var(--accent);}
-  .btn.primary{background:var(--accent);color:var(--accent-ink);border-color:var(--accent);}
+  .btn.primary{background:var(--accent);color:var(--accent-ink);}
+  .btn.primary:hover{background:var(--accent-dark);transform:translateY(-2px);}
+  .btn.dark{background:var(--text);color:#fff;}
+  .btn.dark:hover{background:#000;transform:translateY(-2px);}
+  .btn.outline{background:transparent;color:#fff;border:1.5px solid rgba(255,255,255,0.32);}
+  .btn.outline:hover{background:rgba(255,255,255,0.12);}
 
-  .hero-socials{
-    margin-top:34px;
-    display:flex;gap:20px;justify-content:center;
-  }
+  .hero-socials{margin-top:36px;display:flex;gap:14px;justify-content:center;}
   .hero-socials a{
-    width:46px;height:46px;border-radius:50%;
-    border:1px solid var(--border);
-    display:flex;align-items:center;justify-content:center;
-    color:var(--muted);
-    transition:border-color .15s ease, color .15s ease, transform .15s ease;
+    width:44px;height:44px;border-radius:50%;background:rgba(255,255,255,0.08);
+    border:1px solid rgba(255,255,255,0.15);
+    display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,0.8);
+    transition:background .15s ease, transform .15s ease, color .15s ease;
   }
-  .hero-socials a:hover{border-color:var(--accent);color:var(--accent);transform:translateY(-3px);}
-  .hero-socials svg{width:20px;height:20px;}
+  .hero-socials a:hover{background:rgba(255,255,255,0.16);color:#fff;transform:translateY(-3px);}
+  .hero-socials svg{width:19px;height:19px;}
 
   /* SECTIONS */
-  main{padding:10px 6vw 80px;max-width:1200px;margin:0 auto;}
-  section{padding:80px 0;border-bottom:1px solid var(--border);}
-  section:last-of-type{border-bottom:none;}
-  .section-head{margin-bottom:38px;display:flex;align-items:baseline;gap:16px;}
-  .section-tag{
-    font-family:'JetBrains Mono',monospace;
-    font-size:11px;letter-spacing:3px;text-transform:uppercase;color:var(--muted);
-  }
+  section{padding:96px 6vw;}
+  .section-inner{max-width:1180px;margin:0 auto;}
+  .bg-white{background:var(--bg);}
+  .bg-alt{background:var(--bg-alt);}
+  .bg-dark{background:var(--bg-dark);color:var(--text-on-dark);}
+
+  .section-head{max-width:620px;margin-bottom:44px;}
+  .section-head .eyebrow{margin-bottom:14px;}
   .section-title{
-    font-family:'Cinzel',serif;
-    font-size:clamp(26px,4vw,36px);font-weight:800;letter-spacing:1px;
+    font-size:clamp(30px,4.2vw,48px);font-weight:800;letter-spacing:-0.015em;line-height:1.1;
   }
-  .section-title .dot{color:var(--accent);}
-  .section-rule{flex-grow:1;height:1px;background:var(--border);}
+  .bg-dark .section-title{color:#fff;}
+  .section-sub{margin-top:14px;font-size:15.5px;color:var(--muted);line-height:1.6;}
+  .bg-dark .section-sub{color:var(--muted-on-dark);}
 
   .grid{
-    display:grid;
-    grid-template-columns:repeat(auto-fill,minmax(260px,1fr));
-    gap:20px;
+    display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:20px;
   }
   .card{
     background:var(--card);
     border:1px solid var(--border);
-    border-radius:6px;
-    padding:24px;
+    border-radius:20px;
+    padding:26px;
     display:flex;flex-direction:column;gap:10px;
-    transition:transform .18s ease, border-color .18s ease, box-shadow .18s ease, background .18s ease;
-    position:relative;
+    transition:transform .18s ease, box-shadow .18s ease, border-color .18s ease;
   }
   .card:hover{
     transform:translateY(-4px);
-    border-color:var(--accent);
-    background:var(--card-hi);
-    box-shadow:0 14px 34px rgba(0,0,0,0.25);
+    box-shadow:0 20px 40px rgba(16,24,40,0.1);
+    border-color:color-mix(in srgb, var(--accent) 40%, var(--border));
   }
-  .card .icon{font-size:26px;}
-  .card h3{font-family:'Cinzel',serif;font-size:16px;font-weight:700;letter-spacing:0.5px;}
-  .card p{font-size:13px;color:var(--muted);flex-grow:1;}
+  .bg-dark .card{background:var(--bg-dark-alt);border-color:var(--border-dark);}
+  .icon-badge{
+    width:46px;height:46px;border-radius:13px;
+    background:color-mix(in srgb, var(--accent) 16%, white);
+    display:flex;align-items:center;justify-content:center;font-size:22px;margin-bottom:4px;
+  }
+  .bg-dark .icon-badge{background:color-mix(in srgb, var(--accent) 22%, var(--bg-dark-alt));}
+  .card h3{font-size:18px;font-weight:700;letter-spacing:-0.01em;}
+  .card p{font-size:14.5px;color:var(--muted);flex-grow:1;line-height:1.55;}
+  .bg-dark .card p{color:var(--muted-on-dark);}
   .card .go{
-    font-family:'JetBrains Mono',monospace;
-    font-size:12px;font-weight:600;color:var(--accent);
-    display:inline-flex;align-items:center;gap:6px;letter-spacing:0.5px;
+    font-size:13.5px;font-weight:600;color:var(--accent);
+    display:inline-flex;align-items:center;gap:6px;margin-top:4px;
   }
-
-  #badminton .section-tag{color:var(--accent3);}
-  #desk .section-tag{color:var(--accent2);}
-  #electronics .section-tag{color:var(--accent);}
-  #map .section-tag{color:var(--accent2);}
-  #log .section-tag{color:var(--accent3);}
+  .card .go:hover{text-decoration:underline;}
 
   /* STATES EXPLORED MAP */
-  .map-intro{color:var(--muted);font-size:14px;max-width:640px;margin-bottom:26px;}
+  .map-intro{color:var(--muted);font-size:14.5px;max-width:640px;margin-bottom:26px;line-height:1.6;}
   .map-legend{
     display:flex;gap:22px;align-items:center;flex-wrap:wrap;
-    margin-bottom:20px;font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--muted);
+    margin-bottom:20px;font-size:13.5px;color:var(--muted);
   }
   .legend-item{display:flex;align-items:center;gap:8px;}
-  .legend-swatch{width:14px;height:14px;border-radius:3px;display:inline-block;}
-  .legend-swatch.visited{background:var(--accent);box-shadow:0 0 8px color-mix(in srgb, var(--accent) 70%, transparent);}
+  .legend-swatch{width:14px;height:14px;border-radius:4px;display:inline-block;}
+  .legend-swatch.visited{background:var(--accent);}
   .legend-swatch.unvisited{background:transparent;border:1.5px solid var(--border);}
   .map-legend .stat{color:var(--text);font-weight:700;margin-left:auto;}
   .map-legend .stat span{color:var(--accent);}
 
   .map-wrap{
-    background:var(--card);border:1px solid var(--border);border-radius:10px;
-    padding:20px;overflow:hidden;
+    background:var(--card);border:1px solid var(--border);border-radius:24px;
+    padding:22px;overflow:hidden;box-shadow:0 1px 3px rgba(16,24,40,0.04);
   }
   .us-map{width:100%;height:auto;display:block;}
   .us-map path{
-    fill:color-mix(in srgb, var(--muted) 18%, transparent);
-    stroke:var(--bg);stroke-width:0.75;cursor:pointer;
+    fill:color-mix(in srgb, var(--muted) 16%, white);
+    stroke:#fff;stroke-width:0.75;cursor:pointer;
     transition:fill .2s ease, filter .2s ease;
     transform-box:fill-box;transform-origin:center;
   }
   .us-map path:hover{
-    fill:color-mix(in srgb, var(--accent2) 45%, transparent);
+    fill:color-mix(in srgb, var(--accent) 45%, white);
     transform:scale(1.015);
   }
   .us-map path.visited{fill:var(--accent);animation:statePulse 3.2s ease-in-out infinite;}
   .us-map path.visited:hover{
-    filter:brightness(1.22) drop-shadow(0 0 10px color-mix(in srgb, var(--accent) 80%, transparent));
+    filter:brightness(1.12) drop-shadow(0 0 10px color-mix(in srgb, var(--accent) 70%, transparent));
     transform:scale(1.025);
   }
   @keyframes statePulse{
-    0%,100%{filter:drop-shadow(0 0 1px color-mix(in srgb, var(--accent) 60%, transparent));}
-    50%{filter:drop-shadow(0 0 7px color-mix(in srgb, var(--accent) 85%, transparent)) brightness(1.08);}
+    0%,100%{filter:drop-shadow(0 0 1px color-mix(in srgb, var(--accent) 55%, transparent));}
+    50%{filter:drop-shadow(0 0 7px color-mix(in srgb, var(--accent) 75%, transparent)) brightness(1.05);}
   }
   .us-map path.shake{animation:stateShake .4s ease;}
   @keyframes stateShake{
@@ -274,91 +217,117 @@
     25%{transform:translateX(-2px);}
     75%{transform:translateX(2px);}
   }
-  .map-caption{margin-top:14px;text-align:center;font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:1px;color:var(--muted);}
+  .map-caption{margin-top:14px;text-align:center;font-size:13px;color:var(--muted);}
 
   .state-modal-overlay{
     position:fixed;inset:0;z-index:200;
-    background:color-mix(in srgb, black 55%, transparent);
+    background:rgba(20,21,26,0.55);
     backdrop-filter:blur(6px);
     display:flex;align-items:center;justify-content:center;padding:24px;
     opacity:0;pointer-events:none;transition:opacity .22s ease;
   }
   .state-modal-overlay.open{opacity:1;pointer-events:auto;}
   .state-modal{
-    background:var(--card-hi);border:1px solid var(--border);border-radius:12px;
-    max-width:460px;width:100%;padding:30px;position:relative;
+    background:#fff;border-radius:24px;
+    max-width:460px;width:100%;padding:32px;position:relative;
     transform:scale(.92) translateY(10px);opacity:0;
     transition:transform .25s ease, opacity .25s ease;
-    box-shadow:0 30px 60px rgba(0,0,0,0.4);
+    box-shadow:0 30px 70px rgba(16,24,40,0.28);
   }
   .state-modal-overlay.open .state-modal{transform:scale(1) translateY(0);opacity:1;}
   .state-modal-close{
-    position:absolute;top:16px;right:16px;width:32px;height:32px;border-radius:50%;z-index:2;
-    border:1px solid var(--border);background:var(--card);
+    position:absolute;top:18px;right:18px;width:32px;height:32px;border-radius:50%;z-index:2;
+    border:1px solid var(--border);background:#fff;
     display:flex;align-items:center;justify-content:center;cursor:pointer;color:var(--muted);font-size:16px;
     transition:border-color .15s ease, color .15s ease, transform .15s ease;
   }
   .state-modal-close:hover{border-color:var(--accent);color:var(--accent);transform:rotate(90deg);}
-  .state-modal .state-cover{height:120px;margin-bottom:18px;}
-  .state-modal h3{font-family:'Cinzel',serif;font-size:24px;font-weight:800;letter-spacing:0.5px;margin-bottom:16px;}
-  .state-modal ul{list-style:none;display:flex;flex-direction:column;gap:10px;margin-bottom:22px;}
-  .state-modal li{display:flex;gap:10px;align-items:flex-start;font-size:14px;color:var(--text);}
+  .state-modal .state-cover{height:120px;margin-bottom:20px;border-radius:16px;}
+  .state-modal h3{font-size:25px;font-weight:800;letter-spacing:-0.01em;margin-bottom:18px;}
+  .state-modal ul{list-style:none;display:flex;flex-direction:column;gap:10px;margin-bottom:24px;}
+  .state-modal li{display:flex;gap:10px;align-items:flex-start;font-size:14.5px;color:var(--text);}
   .state-modal li .ic{font-size:17px;flex-shrink:0;}
 
   .state-card{padding:0;overflow:hidden;}
   .state-cover{
-    height:140px;position:relative;border-radius:6px 6px 0 0;
+    height:140px;position:relative;border-radius:19px 19px 0 0;
     display:flex;align-items:center;justify-content:center;
     background-size:cover;background-position:center;overflow:hidden;
   }
   .state-cover::after{
     content:'';position:absolute;inset:0;
-    background:linear-gradient(120deg, transparent 30%, color-mix(in srgb, white 18%, transparent) 50%, transparent 70%);
+    background:linear-gradient(120deg, transparent 30%, rgba(255,255,255,0.18) 50%, transparent 70%);
     background-size:200% 100%;animation:shimmer 5s linear infinite;
   }
   @keyframes shimmer{0%{background-position:200% 0;}100%{background-position:-200% 0;}}
   .state-cover-icon{font-size:40px;position:relative;z-index:1;filter:drop-shadow(0 2px 6px rgba(0,0,0,.35));}
-  .state-card .body{padding:20px 22px 22px;display:flex;flex-direction:column;gap:10px;}
-  .state-card h3{font-family:'Cinzel',serif;font-size:17px;font-weight:700;}
+  .state-card .body{padding:20px 22px 24px;display:flex;flex-direction:column;gap:10px;}
+  .state-card h3{font-size:17px;font-weight:700;letter-spacing:-0.01em;}
   .state-card ul{list-style:none;display:flex;flex-direction:column;gap:6px;}
-  .state-card li{font-size:12.5px;color:var(--muted);display:flex;gap:7px;}
+  .state-card li{font-size:13px;color:var(--muted);display:flex;gap:7px;}
   .state-card li .ic{flex-shrink:0;}
 
-  footer{
-    padding:44px 6vw;text-align:center;color:var(--muted);font-size:12px;
-    border-top:1px solid var(--border);
-    font-family:'JetBrains Mono',monospace;
+  /* CLOSING CTA */
+  .cta-section{text-align:center;}
+  .cta-section .section-head{margin:0 auto 0;max-width:640px;}
+  .cta-section .section-sub{margin-bottom:30px;}
+  .cta-links{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;}
+
+  /* FOOTER */
+  footer{background:var(--bg-dark);color:#fff;padding:60px 6vw 28px;}
+  .footer-inner{max-width:1180px;margin:0 auto;display:flex;flex-wrap:wrap;gap:50px;justify-content:space-between;}
+  .footer-brand{max-width:280px;}
+  .footer-brand .brand{margin-bottom:14px;}
+  .footer-brand p{font-size:13.5px;color:var(--muted-on-dark);line-height:1.6;}
+  .footer-socials{display:flex;gap:10px;margin-top:20px;}
+  .footer-socials a{
+    width:36px;height:36px;border-radius:50%;background:rgba(255,255,255,0.08);
+    display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,0.75);
+    transition:background .15s ease, color .15s ease;
   }
-  footer .brand{display:flex;justify-content:center;margin-bottom:10px;color:var(--text);}
-  footer .foot-socials{display:flex;gap:16px;justify-content:center;margin-top:16px;}
-  footer .foot-socials a{color:var(--muted);}
-  footer .foot-socials a:hover{color:var(--accent);}
-  footer .foot-socials svg{width:16px;height:16px;}
+  .footer-socials a:hover{background:rgba(255,255,255,0.16);color:#fff;}
+  .footer-socials svg{width:16px;height:16px;}
+  .footer-cols{display:flex;gap:60px;flex-wrap:wrap;}
+  .footer-col h4{font-size:13px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--accent);margin-bottom:16px;}
+  .footer-col a{display:block;font-size:14px;color:var(--muted-on-dark);margin-bottom:12px;}
+  .footer-col a:hover{color:#fff;}
+  .footer-bottom{
+    max-width:1180px;margin:44px auto 0;padding-top:24px;
+    border-top:1px solid rgba(255,255,255,0.1);
+    font-size:12.5px;color:var(--muted-on-dark);
+    display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px;
+  }
 
   @media (max-width:820px){
+    nav{flex-wrap:wrap;}
     .nav-links{
-      position:absolute;top:100%;left:0;right:0;
-      background:var(--bg-alt);
+      position:absolute;top:calc(100% + 10px);left:0;right:0;
+      background:var(--bg-dark);
       flex-direction:column;
-      padding:24px 6vw;
-      gap:20px;
-      border-bottom:1px solid var(--border);
+      padding:22px 24px;
+      gap:18px;
+      border-radius:20px;
+      box-shadow:0 20px 40px rgba(0,0,0,0.3);
       display:none;
     }
     .nav-links.open{display:flex;}
     .nav-toggle{display:block;}
     .nav-right .socials{display:none;}
+    .footer-inner{flex-direction:column;gap:36px;}
   }
 </style>
 </head>
 <body>
 
+<div class="nav-spacer"></div>
 <nav>
   <div class="brand">
-    <svg class="compass" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-      <circle cx="12" cy="12" r="9"/>
-      <path d="M15.5 8.5 13 13l-4.5 2.5L11 11l4.5-2.5Z" fill="currentColor" stroke="none"/>
-    </svg>
+    <span class="badge">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+        <circle cx="12" cy="12" r="9"/>
+        <path d="M15.5 8.5 13 13l-4.5 2.5L11 11l4.5-2.5Z" fill="currentColor" stroke="none"/>
+      </svg>
+    </span>
     SURYA <span>EPIC</span>
   </div>
   <div class="nav-links" id="navLinks">
@@ -377,41 +346,25 @@
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="2.5" y="5.5" width="19" height="13" rx="4"/><path d="M10.5 9.5v5l4.5-2.5-4.5-2.5Z" fill="currentColor" stroke="none"/></svg>
       </a>
     </div>
-    <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
-      <svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M20 14.5A8.5 8.5 0 1 1 9.5 4a7 7 0 0 0 10.5 10.5Z"/></svg>
-      <svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="4.5"/><path d="M12 2.5v2.5M12 19v2.5M4.6 4.6l1.8 1.8M17.6 17.6l1.8 1.8M2.5 12H5M19 12h2.5M4.6 19.4l1.8-1.8M17.6 6.4l1.8-1.8"/></svg>
-    </button>
     <button class="nav-toggle" id="navToggle" aria-label="Toggle menu">☰</button>
   </div>
 </nav>
 
 <header class="hero">
-  <svg class="topo" viewBox="0 0 1200 600" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
-    <g fill="none" stroke="currentColor" stroke-width="1" opacity="0.5" color="var(--accent2)">
-      <path d="M-50 100 Q 200 20 450 90 T 950 60 T 1300 110" />
-      <path d="M-50 160 Q 220 90 470 150 T 970 120 T 1300 170" />
-      <path d="M-50 220 Q 240 160 490 210 T 990 180 T 1300 230" />
-      <path d="M-50 480 Q 230 550 480 490 T 980 520 T 1300 470" />
-      <path d="M-50 530 Q 250 590 500 540 T 1000 570 T 1300 520" />
-    </g>
-    <g fill="none" stroke="currentColor" stroke-width="1" opacity="0.35" color="var(--accent)">
-      <path d="M-50 260 Q 260 210 520 260 T 1020 230 T 1300 270" />
-      <path d="M-50 300 Q 270 260 530 300 T 1030 270 T 1300 310" />
-    </g>
-  </svg>
-
+  <div class="glow g1"></div>
+  <div class="glow g2"></div>
   <div class="hero-inner">
-    <div class="eyebrow">Explorer &middot; Athlete &middot; Gear Hub</div>
-    <h1 class="headline">SURYA<span class="epic">EPIC</span></h1>
+    <span class="eyebrow">Explorer &middot; Athlete &middot; Gear Hub</span>
+    <h1 class="headline">SURYA<span class="epic"> EPIC</span></h1>
     <p class="tagline">
       Hey, I'm Surya — a traveler chasing new horizons, one unfamiliar city and strange dish at a time.
       Between flights I chase a shuttlecock across the court, log early miles before sunrise, and hunt down
-      new trails and adventures wherever they turn up. <strong>This is basecamp</strong> — my gear, my setup,
+      new trails and adventures wherever they turn up. This is basecamp — my gear, my setup,
       my journey, all in one place.
     </p>
     <div class="hero-links">
-      <a class="btn primary" href="#badminton">Explore My Gear</a>
-      <a class="btn" href="#desk">See My Setup</a>
+      <a class="btn primary" href="#map">See Where I've Been</a>
+      <a class="btn outline" href="#badminton">Explore My Gear</a>
     </div>
     <div class="hero-socials">
       <a href="#" target="_blank" rel="noopener" aria-label="Instagram" id="igLink2">
@@ -426,21 +379,21 @@
 
 <main>
 
-  <section id="map">
-    <div class="section-head">
-      <div class="section-tag">Travel</div>
-      <div class="section-title">States Explored<span class="dot">.</span></div>
-      <div class="section-rule"></div>
-    </div>
-    <p class="map-intro">Every state I've set foot in, one trip at a time. Click a glowing state to see what I got up to there.</p>
-    <div class="map-legend">
-      <div class="legend-item"><span class="legend-swatch visited"></span> Visited — click for the story</div>
-      <div class="legend-item"><span class="legend-swatch unvisited"></span> Not yet</div>
-      <div class="stat"><span id="visitedCount">0</span>/50 states explored</div>
-    </div>
-    <div class="map-wrap">
-      <svg class="us-map" id="usMap" viewBox="-65 0 1035 615" xmlns="http://www.w3.org/2000/svg">
-        <g id="statesGroup">
+  <section id="map" class="bg-white">
+    <div class="section-inner">
+      <div class="section-head">
+        <span class="eyebrow">Travel</span>
+        <div class="section-title">States Explored</div>
+        <p class="section-sub">Every state I've set foot in, one trip at a time. Click a glowing state to see what I got up to there.</p>
+      </div>
+      <div class="map-legend">
+        <div class="legend-item"><span class="legend-swatch visited"></span> Visited — click for the story</div>
+        <div class="legend-item"><span class="legend-swatch unvisited"></span> Not yet</div>
+        <div class="stat"><span id="visitedCount">0</span>/50 states explored</div>
+      </div>
+      <div class="map-wrap">
+        <svg class="us-map" id="usMap" viewBox="-65 0 1035 615" xmlns="http://www.w3.org/2000/svg">
+          <g id="statesGroup">
 <path data-state="AL" d="M647.457,492.431L651.327,491.507L651.357,491.015L652.402,491.711L651.817,492.309L651.091,492.055L649.834,492.198L648.461,492.644ZM641.077,383.991L641.053,383.698L650.948,382.974L655.098,382.604L665.66,381.874L671.786,381.312L674.218,381.028L684.687,380.014L688.71,379.676L690.388,385.838L692.869,394.322L694.89,401.587L696.401,407.227L698.089,413.18L701.888,426.827L702.568,427.381L702.378,428.113L703.357,428.889L704.03,431.752L704.869,433.076L706.177,434.286L706.566,435.859L707.259,436.489L706.845,438.845L708.132,439.247L709.04,439.93L708.478,441.022L707.729,441.109L707.919,441.56L707.014,442.08L706.245,443.195L706.576,444.261L706.633,445.95L706.348,447.678L705.552,449.189L705.448,450.088L706.135,452.453L706.097,453.324L707.595,454.866L708.07,457.175L707.718,458.338L707.952,459.158L707.581,460.777L707.827,462.304L707.391,462.768L707.85,463.719L707.764,464.792L709.348,466.401L709.976,467.588L710.252,468.756L705.62,469.289L700.72,469.937L693.118,470.843L681.072,472.089L671.707,472.865L660.207,473.96L660.48,474.681L659.776,477L659.955,477.436L661.689,478.832L661.969,479.611L664.613,480.943L664.944,482.267L664.079,484.346L664.384,485.397L665.87,486.262L664.675,487.057L664.26,488.702L663.658,489.05L664.189,489.473L663.185,490.073L660.588,490.989L657.829,491.7L653.916,492.113L655.108,491.209L655.991,491.643L658.395,490.907L658.547,490.227L657.418,489.384L656.856,488.59L655.381,487.795L654.743,486.086L655.248,484.592L654.912,483.13L654.345,482.238L652.9,481.732L651.931,482.716L652.132,483.444L651.597,484.606L651.734,485.398L651.367,486.056L651.53,488.865L651.078,490.195L650.035,490.36L650.047,489.654L648.585,488.99L647.562,489.386L647.177,488.967L645.953,489.497L645.397,485.191L644.632,478.254L643.558,470.043L641.669,455.017L641.846,449.443L642.166,435.457L642.171,431.286L642.611,409.198L642.755,406.033L642.98,393.34L643.185,386.184L642.072,385.586Z"/>
 <path data-state="AK" d="M110.511,544.997L110.579,544.732L110.829,544.793L110.572,545.103ZM109.184,559.473L109.573,558.837L109.795,558.943L109.797,559.258L109.417,559.784L109.193,559.665ZM106.2,561.075L106.582,561.156L106.548,561.404ZM105.433,561.226L105.757,561.331L105.663,561.56L105.456,561.471ZM104.841,560.978L105.133,560.982L105.068,561.217ZM104.965,568.521L105.074,568.21L105.376,568.289L105.273,568.792L105.052,568.916ZM104.039,562.927L104.209,562.731L104.525,562.995L104.042,563.023ZM103.668,551.601L104.059,551.048L104.147,550.278L104.587,550.463L104.209,550.914L104.093,551.253L104.168,551.415ZM102.883,563.034L103.079,562.652L103.347,562.837L103.685,562.855L103.207,563.094ZM101.521,553.099L101.76,553.053L101.844,553.654ZM98.602,569.889L99.032,569.276L99.256,569.233L99.652,569.68L99.725,569.542L99.405,569.101L99.49,568.73L99.624,568.66L100.03,568.826L100.343,568.691L99.904,568.328L100.137,567.941L100.574,568.147L100.797,568.116L100.582,567.736L100.759,567.617L101.06,567.749L101.263,567.437L100.994,567.401L100.796,567.178L101.094,567.153L101.412,566.688L101.915,566.555L101.732,566.319L101.678,565.854L102.068,565.395L102.176,565.604L102.952,565.237L103.057,565.282L102.899,566.094L102.709,566.222L102.34,566.936L102.427,567.509L102.962,567.421L102.98,566.948L103.309,567.001L103.634,567.479L103.923,567.142L104.108,567.363L103.877,568.171L104.016,568.317L104.136,567.821L104.529,567.487L104.639,567.655L104.618,568.443L104.187,569.065L103.703,568.922L103.524,568.372L103.214,568.558L103.426,569.23L103.1,569.375L102.513,569.3L102.281,569.675L102.155,569.432L102.174,568.925L102.024,568.914L101.906,569.697L101.789,569.864L101.325,569.989L101.36,570.241L101.122,570.396L100.445,570.497L99.144,569.993L98.829,570.086ZM97.946,559.318L98.537,559.122L98.8,559.414L98.73,559.743L98.543,559.854L98.123,559.878L97.889,559.476ZM95.479,580.821L95.964,580.515L96.089,580.843L95.51,580.903ZM94.582,582.007L94.898,581.585L95.196,581.449L95.368,581.525L95.76,581.41L95.838,581.683L96.135,581.936L96.7,581.826L96.669,582.079L96.371,582.292L95.648,582.332L95.146,582.42L94.644,582.247ZM92.84,575.435L93.148,575.322L93.214,574.803L93.495,574.293L93.878,574.064L93.957,573.764L94.185,573.82L94.706,573.344L95.209,573.1L95.802,573.204L96.243,573.198L96.243,573.964L96.64,574.353L96.701,574.045L96.959,573.682L96.684,573.354L96.775,573.183L97.582,573.276L97.535,573.037L96.744,572.739L96.455,572.766L96.439,571.898L96.908,571.479L97.345,571.28L97.648,571.36L97.983,571.741L98.08,572.651L98.307,572.56L98.439,572.032L98.36,571.657L98.892,571.912L98.995,571.589L98.433,571.348L98.113,570.954L98.217,570.652L98.473,570.691L99.249,571.279L99.384,571.25L99.841,571.525L100.006,571.454L99.532,570.947L99.227,570.718L99.119,570.418L99.375,570.415L99.832,570.806L100.268,570.718L100.889,570.907L100.989,570.57L101.53,570.457L101.417,570.891L100.841,571.626L100.744,572.196L101.037,572.437L101.025,571.787L101.262,571.489L101.51,571.819L101.58,571.503L101.832,571.279L101.902,570.997L102.112,570.925L102.268,571.133L102.588,570.633L102.843,570.573L102.79,570.882L103.215,570.981L103.056,571.245L102.886,571.112L102.617,571.221L102.91,571.461L102.842,571.798L103.126,571.64L103.301,571.985L103.71,571.967L103.356,572.339L103.108,572.12L102.744,572.115L102.524,572.448L102.768,572.504L102.655,572.87L103.051,572.915L102.67,573.533L103.018,573.409L103.208,573.082L103.29,573.32L104.006,573.328L103.968,573.61L103.433,574.158L103.253,574.915L102.67,574.84L102.633,574.574L102.487,574.858L102.129,574.578L101.87,574.625L101.512,574.296L101.284,574.389L100.916,574.266L100.799,574.583L101.211,574.569L101.442,574.681L102.143,575.262L102.03,575.743L101.684,576.106L101.511,575.863L101.225,576.21L100.929,576.01L100.833,575.752L100.509,575.634L100.203,575.72L99.946,575.977L100.391,575.957L100.703,576.287L100.124,576.658L99.6,576.583L99.54,576.721L99.928,576.948L100.142,576.856L100.681,576.842L101.025,577.13L100.859,577.324L100.489,577.385L99.967,577.618L99.843,577.544L99.552,577.746L99.602,578.081L99.188,578.427L98.985,578.293L99.091,578.059L98.732,577.721L98.837,577.398L99.25,576.97L99.125,576.807L98.895,576.953L98.376,577.676L98.331,577.84L97.99,577.624L97.65,577.694L97.574,577.934L97.977,577.973L98.134,578.402L97.889,578.821L97.502,578.96L97.519,579.438L97.132,579.72L96.945,579.632L96.588,580.193L96.292,580.398L96.011,580.255L95.527,580.391L95.871,579.598L96.042,579.523L96.446,579.038L96.818,578.825L96.787,578.572L96.275,578.73L96.322,578.375L96.661,577.677L97.108,577.32L97,577.115L96.769,577.424L96.244,577.841L95.841,578.607L95.468,579.01L95.251,579.084L95.172,579.385L94.876,579.589L94.816,579.014L94.415,578.616L93.905,578.427L93.957,577.744L93.9,577.019L93.705,576.449L93.538,576.229L93.186,576.089L92.771,576.05L92.989,575.847L92.761,575.592ZM92.643,582.851L93.075,582.166L93.88,581.51L94.209,581.54L94.457,581.911L94.268,582.067L93.401,582.559L92.939,583.094ZM88.378,587.606L88.801,587.337L88.887,587.08L89.098,586.935L89.221,587.156L89.118,587.447L89.187,587.914L89.07,588.136L88.495,588.033ZM83.988,585.777L84.081,585.459L84.31,585.298L84.5,585.709L84.276,586.13ZM83.803,584.497L83.956,584.264L83.98,584.826L83.821,584.826ZM81.647,581.662L81.992,581.35L82.742,581.406L83.117,581.793L82.575,581.611L82.316,581.776L81.64,581.784ZM79.035,583.052L79.344,582.899L79.495,583.298L79.348,583.365ZM74.37,586.905L74.53,586.479L74.838,586.419L75.24,586.845L75.104,586.958L74.787,586.682ZM73.301,586.42L73.53,586.773L73.106,586.658ZM71.898,594.114L71.901,593.868L72.127,593.722L72.44,593.918L72.261,594.307L71.942,594.385ZM72.152,587.343L72.317,586.897L72.482,586.842L72.624,587.278ZM71.294,593.655L71.538,593.093L71.384,592.765L71.887,592.82L71.898,593.498L71.437,593.721ZM70.552,594.667L70.723,594.593L70.961,594.9L70.925,595.13L70.546,595.125ZM70.544,591.668L70.808,591.834L70.917,591.508L71.218,591.218L71.287,591.374L71.124,591.758L71.263,591.858L71.254,592.159L71.057,592.56L71.252,592.782L71.127,592.901L70.863,592.729L70.819,592.869L70.498,592.787ZM69.574,594.528L69.933,594.388L70.095,594.608L69.752,594.756ZM69.607,592.662L69.777,592.409L70.175,592.163L70.235,592.415L69.838,592.641L69.657,593.022ZM68.607,590.351L68.84,590.297L68.895,590.59ZM67.693,593.487L68.293,592.872L68.554,592.711L68.483,592.581L68.126,592.548L68.109,592.025L68.497,591.719L68.908,592.058L68.915,591.798L68.737,591.426L69.215,591.558L69.575,590.809L69.755,590.983L69.697,591.272L69.55,591.273L69.424,591.775L69.608,591.915L69.628,591.691L69.839,591.703L69.738,592.105L69.537,592.34L69.187,592.227L69.144,592.531L68.644,592.972L68.336,593.109L67.741,594.019ZM70.228,563.641L70.328,563.369L70.48,563.954L70.361,564.115ZM67.629,589.519L68.01,589.267L68.58,589.417L68.515,589.945L67.717,589.788ZM69.735,563.676L69.904,563.163L69.939,563.559ZM65.256,590.147L65.566,589.671L65.985,589.542L66.259,589.728L66.196,590.037L66.36,590.019L66.586,589.719L66.806,589.96L67.208,590.178L67.643,590.048L67.713,590.508L67.529,590.901L67.329,590.608L66.976,590.553L66.765,590.375L66.743,590.098L66.574,590.164L66.528,590.632L66.692,590.786L66.812,591.394L66.593,591.784L66.034,591.488L65.912,591.071L65.609,591.164L65.254,591.745L65.36,591.358L65.228,591.049L65.301,590.343ZM67.011,564.155L67.209,563.274L67.819,562.981L68.131,562.972L68.755,562.513L68.827,562.534L67.829,564.31L67.482,564.494L67.007,564.471ZM62.603,590.67L63.042,590.699L62.924,591.173L62.539,590.807ZM61.409,590.527L61.595,590.335L62.182,590.348L61.997,590.677L61.392,590.676ZM60.362,591.207L60.468,590.869L60.759,590.766L61.147,590.943L61.319,591.162L61.852,591.512L61.918,591.801L61.466,591.447L61.048,591.79L60.654,591.235L60.445,591.471ZM57.778,592.393L58.322,592.008L58.721,592.244L58.651,592.806L58.428,593.142L58.198,593.258L57.808,592.81ZM65.643,523.915L65.921,523.648L66.198,523.573L66.484,523.727L66.765,523.722L66.846,523.987L66.791,524.325L65.837,524.292L65.627,524.133ZM55.472,595.922L55.535,595.58L56.604,596.092L56.882,596.396L57.31,596.451L57.583,596.678L57.234,596.792L57.04,596.994L56.712,596.677L56.424,596.701L55.946,596.384L55.624,596.541L55.313,596.107ZM54.997,588.016L55.22,588.054L55.104,588.3ZM45.873,596.445L46.095,596.329L46.339,596.494L45.952,596.686ZM44.104,596.991L44.506,596.824L45.037,596.99L45.453,596.935L45.509,597.11L45.31,597.388L44.866,597.403L44.121,597.091ZM42.864,596.991L43.881,597.001L43.99,597.262L43.705,597.434L43.533,597.149L42.968,597.078ZM42.389,597.178L42.704,597.032L42.777,597.294L42.463,597.336ZM42.182,595.467L42.462,595.129L42.674,595.27L42.991,595.201L43.163,595.376L42.763,595.535L42.92,595.894L43.413,595.98L43.382,596.258L43.007,596.172L42.618,596.651L42.267,596.423L42.327,595.894L42.631,595.705L42.507,595.545L42.219,595.639ZM40.128,595.946L40.254,595.72L40.78,595.443L41.265,595.572L41.244,595.97L41.581,595.989L41.793,596.131L41.872,596.449L42.101,596.4L42.02,596.669L41.548,596.835L41.363,596.725L41.012,596.973L40.947,596.768L40.536,596.686L40.232,596.769L40.047,596.105ZM39.454,597.103L39.588,597.024L39.993,597.328L39.451,597.304ZM43.695,547.469L44.212,547.4L45,547.559L45.278,547.754L45.609,547.75L45.702,547.936L46.006,547.926L46.184,547.751L46.123,547.474L46.682,547.108L47.178,547.281L47.226,547.032L47.63,546.788L48.034,547.144L48.405,546.991L48.734,546.989L49.008,546.664L49.106,547.601L49.467,547.737L49.91,547.581L50.287,547.788L50.613,548.124L50.368,548.533L50.468,548.857L50.267,549.099L50.435,549.205L50.413,549.654L50.186,549.878L50.414,550.294L50.373,550.69L50.679,550.674L50.485,550.876L50.456,551.205L49.435,551.169L49.309,551.383L49.052,551.204L48.665,551.259L48.201,551.577L48.234,552.029L47.858,552.015L47.624,551.477L47.15,551.061L46.347,550.935L46.196,550.662L45.828,550.465L45.527,550.002L45.094,549.624L44.563,549.385L44.215,548.812L43.881,548.674L43.949,548.199ZM30.766,600.785L31.083,600.691L31.524,600.416L31.948,600.469L32.62,600.331L32.807,600.181L33.246,600.417L33.505,600.338L33.698,600.071L34.039,600.272L34.186,599.802L34.57,599.955L34.429,599.191L34.804,599.044L34.916,599.177L35.189,599.107L34.937,598.814L35.055,598.566L35.367,598.469L35.847,598.57L35.907,599.054L36.165,599.056L36.114,598.699L36.37,598.534L35.554,598.048L35.294,598.142L34.873,597.495L34.935,597.188L35.569,596.676L36.327,596.478L36.961,596.38L37.04,596.5L37.436,596.486L37.619,596.958L37.301,597.188L37.371,597.445L37.629,597.619L37.928,597.308L37.985,597.548L38.27,597.401L38.305,597.124L38.682,596.758L38.856,597.193L39.07,597.053L39.323,597.53L39.121,597.88L38.724,597.896L38.239,598.289L37.487,598.632L37.47,598.899L38.103,598.645L39.145,598.397L39.238,598.262L39.63,598.182L39.723,598.331L39.551,598.798L39.222,599.09L38.748,599.237L38.619,599.373L37.807,599.573L37.282,599.612L37.423,599.957L37.155,599.913L37.011,600.308L36.766,600.143L36.559,600.589L36.257,600.357L36.092,600.852L35.474,600.821L35.146,600.549L34.938,600.722L34.768,600.529L34.368,600.706L34.283,600.613L33.45,600.952L33.358,601.148L32.979,601.043L32.68,601.142L32.38,601.497L31.943,601.247L31.73,601.515L30.966,601.077ZM50.21,504.542L50.34,504.333L50.802,504.084L52.363,503.66L53.185,503.314L53.833,502.931L54.421,502.66L54.983,502.326L56.073,501.809L56.768,501.553L58.626,500.739L60.745,500.046L62.342,499.691L63.367,499.546L64.899,499.679L65.473,499.84L65.825,500.105L65.352,500.111L65.394,500.378L65.21,500.839L64.782,501.305L64.723,501.777L64.803,502.174L64.505,502.536L63.913,502.673L63.847,502.801L64.413,502.838L64.741,503.926L65.197,504.014L65.641,503.858L66.122,503.934L66.655,504.215L67.214,504.148L68.02,504.153L68.336,504.593L68.93,504.525L69.107,504.781L69.733,504.64L69.962,504.49L70.876,505.047L71.13,504.672L71.464,504.41L72.005,503.445L72.231,503.292L72.681,503.404L72.744,503.678L73.101,503.8L73.476,503.655L73.774,503.687L73.487,502.904L72.719,502.443L72.225,502.223L71.678,502.167L70.948,502.492L71.186,501.753L71.218,501.189L70.611,500.335L70.439,499.69L70.176,499.418L69.527,499.24L69.486,498.851L69.207,498.198L69.329,497.872L69.645,497.789L69.793,497.514L69.94,497.786L70.231,497.631L70.456,498.269L70.783,498.932L71.044,499.032L70.747,499.687L70.736,500.062L71.01,500.438L71.556,501.345L72.104,501.874L72.56,501.803L72.922,501.652L73.06,501.332L72.552,501.261L72.473,500.945L71.895,500.399L71.388,499.573L71.542,499.235L71.59,498.831L71.765,498.694L71.822,498.311L72.263,497.727L72.572,497.981L72.82,497.989L72.852,497.801L72.472,497.382L72.188,497.403L71.922,496.982L70.933,497.062L70.547,497.267L70.17,497.22L69.72,497.292L69.358,497.129L69.174,496.81L68.971,496.893L68.759,496.707L68.669,497.045L68.305,496.728L67.337,496.306L66.77,496.013L66.255,495.835L66.043,495.598L66.151,494.942L66.072,493.812L65.724,492.279L65.567,491.857L65.242,491.382L64.369,490.552L63.068,488.774L62.871,488.576L62.429,487.903L61.956,487.485L61.429,487.137L60.918,486.888L60.655,486.599L60.54,486.097L60.077,485.434L59.657,485.08L58.863,484.646L58.418,484.601L58.855,484.41L59.887,484.202L60.152,483.935L60.254,483.563L60.545,483.095L60.95,481.55L61.012,480.759L62.806,481.296L63.509,481.377L65.032,481.346L65.871,481.291L66.676,481.315L67.529,481.017L68.013,480.646L68.338,480.49L68.963,479.989L69.966,478.826L70.264,478.242L70.407,477.726L70.559,476.484L71.16,474.987L72.153,473.881L72.945,472.773L73.372,472.307L74.76,471.385L75.665,471.726L76.334,471.821L77.024,471.627L77.683,471.339L78.654,470.737L79.437,470.086L79.913,469.553L81.116,468.399L81.448,468.219L82.425,467.876L82.467,468.194L82.97,468.527L83.748,468.663L84.405,468.608L84.539,468.456L84.844,468.496L85.433,468.419L86.15,468.12L86.885,467.593L87.599,466.821L87.967,466.252L88.83,465.057L89.487,464.578L89.582,465.034L90.013,465.303L90.378,465.329L90.74,465.474L90.874,466.024L91.136,465.759L92.059,466.11L92.186,466.766L91.663,467.226L91.319,467.637L90.929,467.653L91.014,468.63L91.786,468.751L92.216,468.367L92.161,467.859L92.314,467.809L92.618,467.368L92.838,467.293L93.012,467.616L93.058,467.197L92.807,466.905L93.145,466.545L93.338,466.861L93.317,466.428L93.461,466.284L94.125,466.786L94.546,467.23L94.667,467.511L94.561,467.73L94.564,468.458L94.647,468.785L95.231,468.723L95.565,468.971L95.717,469.239L96.178,468.825L96.464,468.325L97.532,468.32L98.188,468.033L98.694,468.1L99.079,468.321L99.88,468.319L100.467,468.519L100.904,468.742L100.996,468.967L100.749,469.047L100.513,469.607L100.268,469.813L100.417,470.431L100.658,470.392L100.846,470.548L101.281,470.576L101.384,470.76L102.055,470.873L102.373,470.802L102.218,471.095L102.311,471.26L101.802,471.45L101.729,471.613L101.929,471.774L102.793,471.704L103.505,471.951L103.65,472.166L103.922,472.121L104.325,471.528L104.873,471.401L105.112,471.51L105.198,471.278L105.584,471.211L105.875,471.377L106.042,471.763L106.44,471.56L106.806,471.485L107.335,470.897L107.47,471.036L107.897,470.874L108.107,470.961L108.425,470.765L108.554,470.957L109.197,470.965L109.834,471.401L110.107,471.387L110.304,471.532L110.54,471.306L110.777,471.34L111.177,471.797L111.202,472.098L111.554,472.196L111.924,471.821L111.97,472.24L112.19,471.838L113.026,472.279L113.205,472.713L113.454,472.845L113.933,472.791L114.363,472.85L114.623,472.581L114.898,473.044L115.375,473.062L115.627,472.732L116.056,472.766L116.653,472.618L117.306,472.611L117.815,472.807L118.307,472.768L118.45,472.561L119.165,473.114L119.446,473.132L119.807,473.45L120.263,473.499L120.486,473.672L120.939,473.692L121.13,473.842L121.366,473.593L122.033,473.635L122.402,473.06L122.866,472.951L122.934,472.806L123.706,472.358L123.858,472.172L124.664,471.842L125.1,471.943L125.532,471.655L125.639,471.76L126.489,472.115L127.047,472.272L127.822,472.683L128.155,473.081L128.53,473.089L129.5,473.575L130.217,473.716L130.806,474.028L131.131,474.288L131.749,474.257L132.38,474.441L144.299,534.571L145.619,541.087L146.789,547.061L148.713,547.336L148.809,546.617L150.875,547.197L151.729,545.751L154.03,545.097L154.103,545.354L154.062,547.273L154.883,547.873L155.914,548.169L156.309,548.231L156.643,548.969L157.172,549.407L161.84,552.354L162.766,554.232L162.809,554.878L163.115,554.772L163.655,553.87L164.95,552.415L165.065,552.221L166.007,551.914L166.209,550.874L165.807,549.5L166.259,549.512L166.476,549.318L166.612,548.777L166.527,548.523L165.999,548.334L166.535,547.847L167.424,547.402L168.935,545.851L170.005,546.362L170.559,546.828L170.714,546.797L171.18,547.16L171.381,547.843L171.261,548.05L171.346,548.289L171.659,548.532L171.67,548.829L172.067,549.254L173.157,549.202L173.356,549.614L173.946,549.959L174.281,549.858L174.901,550.442L174.954,550.92L175.359,550.94L175.366,551.267L175.817,551.637L177.728,552.134L178.423,552.77L179.32,553.347L180.257,553.839L180.033,554.262L180.782,554.985L181.746,555.681L182.518,556.696L183.723,557.612L184.529,558.506L185.202,559.082L185.83,559.76L186.991,560.668L187.797,561.514L187.622,562.584L189.039,562.478L189.185,563.909L190.41,564.074L190.428,564.508L190.718,564.821L191.087,565.553L192.106,565.097L192.768,565.421L194.245,565.731L194.696,565.917L196.065,565.763L196.987,566.263L197.717,566.234L198.156,566.916L198.534,566.885L199.021,566.966L199.561,566.596L200.322,567.353L200.494,567.945L200.453,568.741L200.344,569.271L200.503,569.649L200.745,569.835L200.953,570.618L201.384,571.214L201.661,571.445L202.072,572.26L202.406,572.594L202.161,573.416L202.088,574.332L202.151,574.549L202.061,575.239L201.891,575.862L201.553,576.694L201.266,577.199L201.006,577.397L201.16,577.674L200.921,577.929L200.641,577.741L200.495,577.388L200.238,577.307L200.326,577.595L200.191,577.803L199.871,577.789L199.55,577.528L199.237,576.858L199.151,576.475L198.813,576.358L198.698,575.653L198.546,575.664L198.171,575.393L197.931,575.015L198.244,574.445L198.358,573.947L198.605,573.915L198.385,573.451L198.027,572.985L197.955,572.125L197.377,570.955L197.07,570.58L196.043,569.76L195.586,569.524L195.296,569.28L195.269,569.536L195.757,569.812L196.329,570.223L196.601,570.648L197.141,571.106L197.596,571.892L197.454,572.256L197.607,572.774L197.926,573.326L198.238,573.664L198.166,573.893L197.776,573.337L197.626,573.304L197.834,573.737L197.944,574.234L197.629,575.087L197.426,575.196L196.946,575.012L197.069,574.439L197.07,573.91L196.937,573.682L196.579,573.882L196.896,574.291L196.87,574.604L196.493,575.144L196.384,575.175L195.786,574.605L195.72,574.953L195.216,574.74L194.915,574.715L194.619,574.456L194.039,574.167L193.869,573.676L194.272,573.312L194.492,572.867L194.082,572.67L194.02,572.149L193.796,571.946L194.045,571.54L194.036,571.37L193.762,571.458L193.55,570.997L193.559,570.683L192.978,571.008L193.17,571.267L193.372,571.312L193.44,571.556L193.433,572.173L193.552,572.565L193.427,573.136L193.124,573.147L193.438,573.71L193.381,574.04L192.899,573.83L192.47,573.819L192.266,573.671L191.793,572.881L191.397,572.51L191.779,572.59L191.72,572.069L192.047,571.69L191.903,570.678L191.556,570.06L191.58,569.641L191.717,569.745L191.804,569.412L191.704,568.782L191.414,568.961L191.483,569.356L191.264,569.648L191.083,570.15L191.528,570.814L191.5,571.126L190.995,571.277L190.908,571.616L191.019,571.795L190.792,571.972L190.612,571.788L190.526,571.334L190.189,571.282L189.73,570.514L189.284,570.786L189.388,571.097L188.711,570.472L188.401,569.69L188.467,569.488L188.84,569.357L188.803,568.894L188.891,568.511L189.313,568.283L189.71,568.668L189.677,568.225L189.086,567.213L189.213,567.148L189.758,567.288L189.948,567.65L190.182,567.801L190.221,567.622L189.917,567.169L189.513,567.054L189.125,566.839L188.964,566.511L188.773,566.482L188.649,566.704L188.394,566.436L187.983,566.343L187.785,565.999L187.913,565.79L187.715,565.395L187.329,565.322L186.64,565.075L186.3,564.691L186.008,564.55L185.648,564.1L185.983,563.68L185.697,563.357L185.533,563.749L185.215,563.723L185.243,563.909L184.782,563.642L184.31,563.738L184.03,563.426L183.692,563.736L182.74,563.495L182.467,563.044L182.536,562.498L182.845,562.557L183.319,562.376L183.35,562.022L183.022,562.106L182.48,562.021L182.436,561.783L181.914,561.053L181.935,560.464L181.607,560.641L181.35,560.586L181.008,560.314L180.897,559.61L181.182,559.505L181.488,559.666L182.016,559.67L183.116,559.955L183.156,559.834L182.672,559.574L182.343,559.543L181.118,559.001L180.878,558.396L180.664,558.571L180.769,559.004L180.474,559.076L179.571,558.169L178.481,557.455L178.04,556.589L178.037,556.124L177.904,555.793L178.205,555.406L177.817,554.81L177.708,554.858L177.751,555.453L177.527,555.737L177.612,556.012L177.827,556.103L177.756,556.533L177.593,556.512L177.319,556.739L176.938,556.777L176.355,556.711L176.285,556.839L175.712,556.754L174.799,555.784L174.528,555.08L173.658,554.338L173.321,553.874L173.588,553.788L173.096,552.691L172.936,553.138L173.062,553.515L172.314,552.792L171.862,551.662L171.574,551.09L171.022,550.287L170.356,549.653L169.784,549.553L169.744,549.678L170.206,549.817L170.34,550.071L170.651,550.259L171.179,551.04L170.948,551.028L170.208,550.244L169.833,550.095L169.507,550.116L170.253,550.559L170.595,551.066L170.888,551.188L170.974,551.855L171.267,552.397L171.494,552.495L171.469,552.674L172.086,553.379L172.233,553.728L172.854,554.538L172.944,554.74L172.724,554.726L173.5,555.954L173.792,556.475L173.939,556.924L173.752,556.922L173.854,557.326L174.15,557.696L173.689,557.667L173.355,557.536L173.161,557.621L172.821,557.413L172.481,557.041L172.179,556.529L171.894,556.725L171.328,556.53L171.01,556.883L170.329,557.21L170.222,556.664L169.835,556.658L169.743,556.549L170.1,556.172L169.83,555.757L169.804,555.388L169.206,554.78L169.14,554.543L168.674,554.075L168.814,553.866L168.621,553.28L168.236,552.932L168.049,552.912L168.499,553.718L168.556,554.59L168.182,554.729L167.459,554.429L167.037,554.331L166.557,553.396L166.522,553.888L166.377,554.083L165.658,553.892L165.495,554.076L165.266,553.783L165.127,553.947L165.179,554.316L165.878,554.378L165.965,554.306L166.682,554.426L167.268,554.736L167.881,555.307L167.803,555.641L167.54,556.024L167.645,556.074L168.037,555.655L168.083,555.43L168.466,555.318L168.756,555.984L169.269,556.396L169.785,557.368L169.592,557.734L169.032,558.115L168.856,558.092L168.9,557.747L168.613,557.712L168.471,557.871L168.641,558.101L168.564,558.385L167.905,558.407L167.787,558.601L167.966,558.979L167.912,559.241L167.484,559.32L167.231,558.835L166.65,558.741L166.668,558.63L166.135,558.247L165.857,558.185L165.472,558.42L164.848,558.087L164.592,558.047L163.606,557.543L162.748,557.23L162.636,556.905L162.091,556.547L161.456,556.253L161.339,556.085L161.273,555.572L160.98,555.306L160.001,554.692L159.5,554.483L157.996,554.214L157.375,553.861L156.664,553.562L155.12,553.184L154.453,552.99L152.958,552.31L152.479,552.141L152.507,551.931L152.813,551.241L153.17,551.261L153.083,551.47L153.416,551.375L153.352,551.088L153.543,550.555L153.225,550.576L153.139,550.055L152.773,549.322L152.819,549.067L153.064,548.725L152.944,548.513L153.122,548.263L152.859,547.929L152.671,548.328L152.73,548.729L152.413,548.945L152.226,549.491L152.284,549.822L150.932,550.812L150.804,551.035L150.451,551.305L149.087,551.433L148.098,551.381L147.691,551.239L145.804,550.735L145.494,550.404L145.758,550.423L146.202,550.17L146.263,549.663L145.634,548.871L145.621,548.58L145.365,548.748L144.878,548.534L145.026,548.855L145.806,549.542L145.694,549.71L145.006,550.196L144.461,550.299L143.708,550.055L142.827,550.049L142.352,549.974L141.175,549.904L140.534,549.939L139.715,550.106L138.872,550.475L137.808,550.732L136.718,551.099L136.01,551.541L135.423,551.361L134.818,551.631L134.037,552.577L133.499,553.45L133.521,552.997L133.928,552.226L134.683,551.305L135.326,551.195L135.035,550.782L134.301,550.559L134.164,550.406L134.106,550.982L133.659,550.466L133.266,550.315L133.037,550.41L132.788,550.258L131.778,550.268L131.877,550.061L132.386,549.831L131.769,549.689L131.51,549.766L131.458,549.6L131.827,548.471L131.605,548.398L131.458,548.667L131.076,548.871L131.114,549.26L130.896,549.745L130.342,549.737L129.281,549.205L129.267,548.993L128.875,548.795L128.311,548.686L127.771,548.995L127.443,548.849L127.599,548.629L128.002,548.359L128.286,547.813L128.084,547.769L127.876,548.133L126.857,548.899L126.472,549.103L125.939,549.13L125.996,549.496L126.81,549.214L126.982,549.359L127.053,549.716L126.814,549.731L126.454,550.029L126.198,550.017L125.655,550.342L125.14,550.931L124.971,550.936L124.767,550.628L125.365,550.03L124.857,550.17L124.612,550.121L124.557,549.755L124.815,549.155L124.975,548.951L125.224,548.909L125.526,549.088L125.846,548.934L126.12,548.62L126.636,548.47L127.379,547.98L127.944,547.773L127.798,547.618L127.537,547.664L127.492,547.18L127.381,547.532L127.134,547.699L127.124,547.494L127.415,547.01L127.411,546.866L127.004,547.315L126.42,547.709L126.16,547.76L126.08,547.563L126.859,546.698L126.746,546.45L126.395,546.905L125.882,547.062L125.696,546.904L125.527,547.262L125.262,547.388L124.506,547.384L124.324,547.004L124.682,546.834L124.841,546.878L125.07,546.68L125.608,546.508L125.985,546.271L126.249,545.792L125.904,545.818L125.748,546.154L125.447,546.32L124.829,546.404L124.53,545.969L124.363,545.967L124.181,546.462L123.898,546.548L123.799,546.152L124,545.951L124.238,545.967L124.054,545.684L123.971,545.314L124.124,545.063L124.393,544.248L125.698,544.057L125.572,543.81L124.336,543.985L124.097,544.446L123.748,544.663L123.518,545.219L123.128,545.591L122.803,545.542L123.052,545.268L122.834,544.513L122.632,544.17L122.856,543.94L122.549,543.903L122.374,544.08L122.397,544.428L122.605,544.84L122.458,545.289L122.501,545.567L122.333,545.688L121.943,545.397L121.962,545.857L121.622,546.201L121.318,546.079L121.283,545.725L121.12,545.61L121.072,546.117L120.939,546.027L120.908,545.143L120.989,544.708L120.777,544.653L120.63,545.562L120.827,546.306L120.791,546.509L120.535,546.596L120.517,546.26L120.124,546.064L120.057,546.387L120.319,546.809L120.145,546.88L119.611,546.82L119.172,547.19L118.78,547.163L118.692,546.958L118.828,546.293L119.311,545.211L119.292,544.848L119.883,543.948L120.049,543.375L119.956,543.26L119.094,544.791L119.102,545.031L118.891,545.448L118.776,545.404L118.625,544.943L118.461,544.964L118.469,545.52L118.35,545.902L118.127,546.21L118.124,546.65L117.943,547.133L117.638,546.973L117.566,547.281L117.914,547.445L117.897,548.071L118.04,548.114L118.254,547.512L118.761,547.426L118.927,547.563L119.037,548.178L118.87,548.503L118.459,548.759L118.198,549.303L118.249,549.732L118.53,549.57L118.722,549.038L119.112,548.701L119.584,549.271L119.611,549.571L119.777,549.851L119.574,551.19L119.21,551.222L119.052,550.879L118.781,550.841L118.816,551.085L118.464,551.418L118.474,551.534L118.858,551.405L119.197,551.56L120.132,552.329L120.552,552.874L120.389,553.419L120.221,553.613L119.761,553.896L119.511,553.808L119.323,553.949L118.916,554.025L119.013,553.666L118.606,553.241L118.698,552.821L118.421,552.412L118.269,553.29L118.304,553.714L118.158,554.008L117.85,553.559L117.727,553.624L117.661,554.035L117.424,554.281L116.914,553.978L116.525,554.284L116.284,553.945L115.913,554.118L115.598,554.107L115.457,553.925L115.759,553.394L115.624,553.308L115.262,553.596L114.936,554.821L114.53,555.138L114.393,555.024L114.566,554.634L114.71,554.047L114.416,552.887L114.187,552.869L114.13,553.065L114.182,553.617L114.391,553.967L114.252,554.004L114.143,554.506L113.897,554.447L113.793,554.591L113.753,555.06L113.604,555.187L113.682,555.504L114.053,555.692L114.001,556.204L113.601,556.011L113.373,555.154L113.47,554.894L113.279,554.371L113.035,554.346L113.143,554.696L113.051,555.038L113.208,556.373L113.165,556.814L112.746,556.333L112.714,556.04L112.473,555.863L111.975,555.681L112.035,555.952L112.392,556.177L112.404,556.608L111.479,557.747L111.054,558.395L111.067,558.641L110.84,558.723L110.742,559.318L110.568,559.313L110.499,558.837L110.91,557.368L110.899,557.17L110.55,557.634L110.317,558.408L110.14,558.342L109.96,557.378L109.792,557.743L109.633,557.737L109.885,558.149L109.841,558.7L109.278,558.728L109.183,559.151L108.931,559.328L108.63,559.719L108.745,560.008L108.541,560.299L108.312,560.378L108.295,560.009L108.052,559.773L107.877,560.089L107.878,560.452L107.564,560.582L107.206,560.385L107.082,560.547L106.767,560.299L106.654,560.009L106.489,560.262L106.191,560.459L106.288,560.695L105.997,560.706L105.934,560.975L105.339,561.044L105.234,560.527L104.918,560.633L104.608,560.492L104.647,560.34L104.34,560.295L104.282,559.817L104.39,559.568L104.618,559.437L104.675,558.949L105.13,558.722L105.262,558.793L105.668,558.429L106.143,558.391L106.132,558.083L106.601,557.921L107.073,557.478L107.52,557.52L107.343,557.055L107.65,556.864L107.684,556.643L108.182,555.922L107.991,555.827L107.655,555.993L106.829,556.775L106.404,556.929L106.156,557.205L105.593,557.116L104.961,556.679L104.737,556.412L104.656,556.1L104.886,555.29L105.061,554.976L105.243,554.059L105.606,553.505L105.838,553.27L106.307,552.574L106.435,551.897L106.416,551.411L106.73,551.179L106.756,550.109L106.805,549.922L106.541,549.631L106.191,548.528L106.722,548.267L106.784,548.079L107.648,547.857L108.824,546.677L110.048,545.804L110.811,546.866L111.383,546.942L111.573,547.116L111.995,546.322L112.404,546.241L112.919,546.516L113.176,546.431L114.066,546.699L114.972,546.771L115.414,547.116L115.386,546.933L115.051,546.525L114.633,546.309L114.117,546.442L113.386,546.06L113.057,546.089L112.489,545.838L112.116,545.395L111.554,544.977L111.146,544.809L111.369,544.418L111.693,544.337L112.063,543.463L112.368,543.32L112.45,542.903L113.062,542.678L113.447,542.342L112.991,542.03L112.719,542.021L112.165,542.496L112.037,542.84L111.785,542.952L111.652,543.441L111.681,543.919L111.449,544.146L111.1,544.037L110.606,544.017L109.604,544.189L109.234,543.914L108.847,543.824L108.674,544.189L107.512,544.82L107.024,545.897L106.533,545.999L106.28,546.222L105.826,546.226L105.305,546.677L104.668,547.446L104.661,547.645L105.05,548.481L105.028,548.639L104.495,548.486L104.235,548.617L103.829,548.986L103.555,549.624L103.184,549.833L102.751,550.352L102.68,550.854L102.798,551.084L103.068,551.241L102.517,551.639L102.401,552.1L102.219,552.132L101.835,552.62L101.568,552.674L101.438,552.485L101.087,552.567L101.152,553.031L101.38,553.116L101.341,553.322L101.701,553.603L101.819,553.84L101.66,554.343L101.396,554.67L101.305,555.097L100.952,555.247L100.898,555.399L100.342,555.422L100.127,555.343L99.56,555.563L99.303,555.546L99.037,555.96L99.364,555.847L99.58,555.981L99.791,555.773L100.062,555.762L100.167,556.103L99.95,556.9L99.679,557.014L99.311,557.368L98.906,557.119L98.98,557.351L98.795,557.476L98.535,557.355L98.634,557.115L98.658,556.601L98.339,556.117L98.388,556.932L98.262,557.309L98.005,557.414L97.817,557.244L97.732,557.484L97.963,557.675L97.836,558.038L97.131,558.11L97.379,558.746L97.264,558.966L96.875,559.111L96.73,559.056L96.384,559.365L96.21,559.276L95.689,559.529L95.761,559.707L96.051,559.831L95.717,560.049L95.615,560.344L95.644,560.761L95.468,561.062L95.118,561.301L95.467,561.48L95.379,561.883L95.524,562.295L95.919,561.864L96.78,562.021L97.014,561.87L97.189,562.02L97.408,561.848L97.732,562.38L98.011,562.563L98.288,562.472L98.627,562.702L98.894,563.062L99.015,563.424L99.237,563.572L98.827,563.672L98.628,564.482L98.454,564.75L98.012,564.925L97.852,565.302L97.499,565.53L96.788,565.533L96.567,565.649L96.508,566.293L96.33,566.519L95.929,566.512L95.855,566.649L96.003,567.19L96.167,567.409L95.764,567.655L95.466,567.552L95.436,567.86L95.734,568.175L95.568,568.729L95.253,568.933L95.162,569.159L95.297,569.324L94.952,569.322L94.74,569.677L94.352,569.223L94.217,569.27L94.289,569.661L94.227,569.934L93.912,569.952L93.729,570.245L93.474,570.133L93.476,569.948L93.175,569.952L93.112,570.218L92.779,570.379L92.435,570.162L92.012,570.272L91.477,570.736L91.698,571.096L91.556,571.442L90.946,571.733L90.522,571.738L90.53,572.101L90.739,572.276L90.642,572.548L90.337,572.651L89.799,572.236L89.653,572.027L89.346,572.157L89.26,572.586L89.264,573.058L88.863,573.233L88.801,573.895L87.808,573.915L87.493,573.741L87.447,574.246L87.554,574.735L87.248,574.726L87.073,574.467L86.753,574.436L86.683,574.701L86.187,574.868L85.567,575.476L85.334,575.549L85.245,575.847L85.442,575.929L86.179,575.518L86.229,575.862L86.124,576.221L85.891,576.261L85.884,576.473L86.152,576.742L85.988,576.997L85.704,577.164L85.661,577.498L85.248,577.783L85.116,577.997L85.136,578.285L84.644,578.17L84.157,578.342L84.074,578.817L83.885,578.891L83.612,578.366L83.472,578.723L83.041,578.991L82.853,579.345L82.478,579.369L82.54,579.714L82.266,579.885L81.892,579.573L81.542,579.097L81.194,579.188L81.176,579.536L81.345,579.579L81.348,579.826L80.893,579.871L80.666,580.317L80.748,580.541L81.027,580.596L81.086,580.955L80.522,580.953L80.142,581.035L79.905,580.494L79.094,580.708L78.792,581.039L78.541,581.044L78.38,581.37L78.677,581.395L79.109,581.249L79.416,581.384L79.488,581.758L79.219,582.064L78.563,581.723L78.207,581.626L78.099,582.099L77.584,582.025L77.232,581.859L76.904,582.063L76.439,582.635L76.45,582.937L77.181,583.122L77.67,583.4L77.61,583.595L77.086,583.849L77.092,584.006L77.374,584.052L77.783,583.866L78.032,583.929L77.129,584.406L76.737,584.812L76.729,585.167L76.546,584.812L76.38,584.918L76.604,585.385L76.485,585.719L76.392,585.446L76.233,585.449L76.176,585.808L75.817,585.235L75.862,584.588L75.532,584.976L75.624,585.482L75.529,585.934L75.144,585.948L75.22,585.556L74.665,585.509L74.371,586.035L73.968,586.067L72.752,586.267L72.279,586.38L72.155,586.521L72.066,587.02L71.821,586.685L71.945,586.147L71.568,586.246L71.711,586.464L71.668,587.173L71.372,587.634L71.442,587.956L71.011,588.474L70.48,588.634L70.543,588.283L70.93,588.289L70.937,588.016L70.779,587.975L70.876,587.222L71.205,586.757L70.765,586.452L70.326,586.332L70.109,586.436L70.129,586.746L69.925,586.872L69.732,586.704L69.325,586.756L69.13,587.301L68.525,587.752L68.096,587.849L67.522,587.602L67.407,587.79L67.554,588.106L67.18,588.625L67.176,588.837L66.814,589.056L66.692,588.323L66.54,588.219L66.291,588.448L66.124,588.335L65.814,588.516L66.302,588.655L66.224,589.113L65.703,589.129L65.463,588.933L65.571,588.676L65.379,588.492L65.01,588.604L64.641,589.183L63.597,589.654L63.18,589.595L63.025,589.378L62.585,589.528L62.379,589.477L62.659,588.437L63.197,587.838L63.248,587.528L63.02,587.393L62.523,587.35L62.117,587.503L61.654,588.143L61.616,589.026L60.861,589.899L60.739,589.967L60.444,590.516L60.135,590.231L59.818,590.276L59.975,590.741L60.123,590.876L60.093,591.257L59.657,591.466L59.377,591.205L59.414,590.9L59.168,590.766L58.907,591.147L59.028,591.498L58.713,591.782L58.509,591.571L57.984,591.56L57.74,591.405L57.578,590.875L58.101,590.901L57.802,590.539L57.763,589.819L57.474,589.396L57.304,589.325L57.017,589.515L56.798,589.934L56.887,590.131L57.113,590.161L57.341,590.672L57.123,590.96L57.266,591.633L57.22,591.984L56.89,591.735L56.549,591.821L56.574,592.003L56.272,592.169L55.973,592.178L55.641,591.94L55.436,591.506L55.534,591.272L55.375,590.865L55.07,590.568L54.546,590.668L54.332,591.024L55.045,591.708L55.082,591.926L54.166,592.564L53.756,592.651L53.399,592.828L53.606,593.243L54.048,593.291L54.217,593.15L54.529,593.537L54.664,594.127L54.245,594.028L54.407,593.816L54.135,593.737L53.946,593.904L53.705,593.718L53.487,593.261L53.042,593.466L53.008,593.936L52.713,593.901L52.207,594.172L51.849,593.996L51.255,593.839L50.515,593.763L49.946,593.773L49.235,593.939L48.686,594.343L48.548,594.798L48.016,595.08L47.145,595.168L46.672,595.07L46.245,594.807L46.13,594.581L46.066,594.059L45.936,593.83L45.981,593.457L46.144,593.284L46.906,593.126L47.162,592.995L47.656,592.315L48.083,591.624L48.098,591.426L48.512,591.119L48.753,591.068L49.109,591.441L49.765,591.275L50.22,591.007L50.625,591.068L51.305,590.612L51.874,590.559L52.442,590.74L52.948,590.779L52.928,591.031L53.311,591.582L53.399,592.015L53.269,592.341L53.731,592.241L53.651,591.872L53.718,591.626L54.176,591.897L53.973,591.58L54.078,591.064L54.021,590.305L54.58,590.066L55.019,589.983L55.682,590.177L56.034,590.128L56.258,589.683L56.004,589.621L56.094,589.44L56.392,589.411L56.539,589.169L56.825,589.235L57.331,588.62L57.35,588.843L57.574,589.01L57.953,588.728L57.945,588.156L57.617,588.175L58.109,587.771L59.307,586.505L59.876,586.218L60.294,585.843L60.606,585.791L61.069,585.558L61.521,585.144L61.96,585.099L62.545,584.899L63.147,584.83L64.608,584.51L65.076,584.622L65.248,584.516L65.963,584.557L66.114,584.641L65.779,584.792L65.73,585.109L65.95,585.146L65.869,585.474L65.395,585.548L65.287,586.121L65.823,586.849L66.014,586.718L66.418,587.026L66.495,586.904L66.069,586.497L66.08,585.915L66.007,585.687L66.401,585.92L67.309,585.99L67.363,586.585L67.734,586.573L68.125,586.857L68.251,586.718L68.054,586.425L68.494,586.364L67.661,585.674L67.177,585.38L67.231,584.987L66.973,585.009L67.701,583.942L68.019,583.128L68.229,582.764L68.619,582.499L69.245,581.899L69.536,581.837L70.208,581.39L70.726,580.88L72.062,580.336L72.743,579.885L73.309,579.663L74.422,579.023L74.707,578.756L75.123,579.253L75.411,579.37L75.902,579.275L76.055,578.881L75.876,578.546L75.867,578.231L76.157,577.415L76.656,576.709L77.346,575.865L77.742,575.466L78.095,575.235L78.725,574.993L79.068,574.658L79.44,574.084L79.659,573.994L80.08,573.594L80.547,573.449L80.641,573.961L80.91,574.078L80.986,573.802L80.872,573.076L80.522,573.071L80.444,572.833L80.51,572.186L80.669,571.791L81.198,569.017L81.423,568.741L81.998,568.661L82.196,568.308L81.894,568.355L81.414,567.802L81.391,567.376L81.561,566.72L81.896,566.011L82.307,565.806L82.771,565.137L83.527,564.474L83.604,564.087L83.912,563.464L83.853,563.152L84.054,562.935L84.023,562.639L84.225,562.388L83.932,562.375L83.761,562.586L83.749,562.846L83.425,563.194L83.004,563.387L82.436,563.544L82.117,563.74L81.683,563.868L81.602,564.008L80.988,564.166L80.316,564.546L79.12,564.974L78.738,564.916L78.349,564.527L78.308,564.024L78.036,563.67L77.466,563.37L77.517,563.058L77.686,562.953L77.895,561.822L77.719,561.83L77.306,562.495L76.679,562.821L76.563,563.211L76.608,563.612L76.472,563.856L76.26,563.923L76.2,564.138L76.293,564.694L76.484,565.332L76.728,565.871L76.3,566.438L75.874,566.551L75.267,566.286L74.774,565.142L74.194,563.668L73.853,563.139L73.54,562.824L73.093,562.697L73.365,562.274L73.157,561.954L72.786,561.984L72.647,562.57L72.432,562.503L72.408,562.947L71.964,563.114L71.661,562.544L71.721,562.371L71.455,562.216L71.276,562.406L71.045,562.343L71.068,561.94L70.735,562.032L70.41,561.582L70.703,561.287L70.513,560.656L69.839,560.949L69.121,561.373L68.626,561.75L68.267,562.367L68.117,561.959L67.568,562.128L66.101,562.823L65.924,563.086L65.887,563.419L65.255,563.61L65.118,563.773L64.786,563.804L64.531,564.078L64.225,564.146L64.21,563.765L63.82,563.408L63.011,563.449L62.613,563.172L63.37,562.941L63.558,563.232L63.832,563.182L63.946,562.851L64.374,562.371L64.465,561.968L64.417,561.377L64.496,560.828L64.323,560.297L64.412,560.163L64.197,559.999L63.856,559.29L63.682,558.31L64.204,557.49L64.525,557.37L64.932,556.874L65.297,556.737L65.144,556.188L64.922,555.859L64.76,555.398L64.704,554.654L64.129,553.467L64.148,552.958L63.851,552.46L63.764,552.014L63.415,551.384L63.312,551.067L63.012,550.967L62.826,551.198L62.733,551.697L62.785,551.959L62.623,552.325L62.436,552.446L62.047,552.464L61.812,552.289L61.496,552.62L60.962,552.748L60.193,553.114L59.116,553.295L57.845,553.306L56.795,553.08L56.115,552.714L55.965,552.469L55.886,551.771L56.227,551.699L56.047,551.193L55.356,550.655L55.025,549.854L54.992,549.613L54.588,549.194L54.405,548.735L53.831,548.585L53.448,548.23L52.922,547.378L53.277,547.215L53.67,546.899L53.683,546.652L53.359,546.556L52.774,546.832L52.124,546.651L51.963,546.269L52.152,546.079L52.593,546.148L53.522,545.417L53.655,545.467L53.939,545.202L53.758,544.935L53.75,544.649L54.214,544.56L53.853,544.451L54,543.99L54.456,543.524L54.228,543.466L53.929,543.749L53.432,543.373L53.397,543.089L53.751,542.809L54.111,542.911L54.395,542.799L54.445,542.495L54.191,542.599L53.821,542.314L53.666,541.913L53.72,541.762L53.458,541.669L53.323,541.403L53.171,541.474L52.894,542.114L52.698,542.122L52.202,541.924L52.092,541.759L52.036,541.29L52.203,540.422L52.078,540.268L51.513,540.097L51.316,539.805L51.302,539.12L51.917,538.925L52.043,538.683L51.871,538.332L51.51,538.051L50.877,538.124L50.82,538.434L50.569,538.227L50.559,537.612L50.849,536.643L50.942,536.583L50.782,537.299L52.06,537.205L52.083,537.077L51.644,536.858L51.414,536.621L51.198,536.011L51.246,535.894L51.745,535.853L52.461,536.038L52.926,535.947L52.705,534.976L52.708,534.657L52.849,534.098L53.216,533.628L54.859,531.984L54.945,531.797L55.383,531.338L55.828,530.99L55.972,530.528L56.28,530.115L56.589,529.931L56.829,529.998L56.971,529.862L56.957,529.062L57.499,527.848L57.805,527.413L58.356,527.079L58.153,526.88L58.228,526.74L59.107,525.959L59.914,525.767L60.533,525.786L61.019,526.171L61.552,526.326L61.875,526.954L62.174,527.039L62.225,527.226L62.829,527.92L63.783,527.887L64.674,527.152L64.767,526.84L65.352,526.718L66.301,525.655L66.668,525.088L66.992,524.86L66.928,524.452L67.108,524.44L67.437,524.674L67.71,524.742L67.81,525.284L68.466,525.363L69.05,525.294L69.363,525.468L70.356,525.387L70.99,525.195L71.141,524.861L71.938,524.065L72.509,523.196L72.558,522.714L72.465,522.148L72.246,521.472L72.121,520.628L72.193,519.825L72.169,519.465L71.412,518.306L71.325,518.076L70.845,517.831L70.516,517.787L70.713,517.142L71.066,516.955L71.218,517.144L71.63,517.326L72.256,517.346L72.167,517.027L72.552,516.999L73.107,516.501L73.211,515.729L72.789,514.849L72.272,514.327L72.007,513.969L71.971,514.185L71.611,514.475L71.305,515.031L70.775,515.178L70.301,514.835L69.515,515.381L68.508,515.493L68.23,515.947L67.111,516.514L66.794,516.954L66.645,517.617L66.045,518.02L66.08,517.384L65.997,516.615L65.764,516.239L65.421,516.213L65.501,515.989L65.157,515.625L65.082,515.367L64.565,515.708L64.716,516.039L64.964,516.122L65.122,516.413L65.423,516.378L65.403,516.707L65.06,517.218L64.818,517.26L64.628,516.668L64.033,516.06L63.569,515.765L62.807,515.563L62.284,515.671L61.97,515.54L61.344,515.423L60.777,515.486L59.348,516.03L58.626,516.028L57.367,515.301L56.286,514.799L55.737,514.602L54.728,514.139L54.239,513.499L54.122,512.81L54.228,512.316L54.512,512.12L54.522,511.677L54.27,511.191L53.809,510.714L53.874,510.316L53.414,509.782L53.37,509.384L53.786,509.695L54.179,509.75L54.32,509.59L54.621,509.543L54.85,509.365L54.885,508.989L55.373,508.658L55.008,508.152L54.797,508.049L54.438,508.091L54.001,507.903L53.323,507.408L52.14,507.023L51.643,506.559L51.29,506.047L50.738,505.512L50.25,505.199ZM24.377,603.043L24.872,602.969L24.945,602.574L25.247,602.643L25.47,602.442L25.556,602.064L25.958,601.925L26.127,601.566L25.984,601.422L26.298,600.886L27.224,600.355L27.453,600.588L27.927,600.581L28.39,600.704L28.334,600.239L28.142,600.162L28.404,599.683L28.343,599.488L28.753,599.049L29.514,598.748L30.463,598.695L30.869,599.151L31.386,599.253L31.387,599.413L30.933,599.832L30.932,600.249L29.88,600.686L28.69,600.93L28.277,601.299L28.208,601.535L27.62,601.97L27.283,602.299L26.849,602.272L26.273,602.638L25.996,602.694L25.852,603.017L25.631,602.821L25.103,603.042L24.089,603.291ZM23.205,603.504L23.769,603.293L23.683,603.587L23.206,603.651ZM21.281,601.375L21.428,601.061L21.771,601.032L21.768,601.339L21.546,601.6L21.332,601.605ZM27.953,573.262L28.693,573.532L29.142,573.604L29.273,573.733L28.753,574.087L28.409,573.977L28.345,573.638L28.056,573.498ZM21.403,600.579L21.474,600.869L21.245,600.723ZM19.896,602.108L20.208,602.066L20.589,602.18L20.586,602.046L21.076,602.004L21.378,602.147L21.506,602.353L21.054,602.978L20.629,602.526L20.163,602.615L19.866,602.444ZM19.497,601.562L19.673,601.423L20.032,601.624L19.999,601.833L19.714,601.98L19.522,601.82ZM18.821,602.851L19.006,602.393L19.531,602.649L19.321,602.996ZM26.352,568.345L26.559,568.094L26.912,568.077L27.075,568.188L27.544,568.15L27.422,568.514L26.841,568.806L26.817,568.582ZM15.538,603.021L15.693,602.766L16.488,602.465L16.963,602.776L16.934,602.958L16.618,603.285L16.302,603.19L15.972,603.287L15.638,603.538L15.421,603.334ZM14.027,602.752L14.123,603.002L13.857,602.918ZM13.085,603.247L13.445,603.048L13.65,603.362L13.352,603.67L13.03,603.591ZM33.952,517.793L34.044,517.556L34.506,517.066L34.605,516.562L34.734,516.47L34.776,516.077L35.036,516.127L35.058,516.431L34.923,516.734L35.008,516.998L35.687,517.584L36.544,518.152L37.182,518.46L38.041,518.068L38.848,517.865L39.534,518.136L39.775,518.682L40.033,518.852L40.047,519.587L39.96,519.834L40.523,520.366L41.193,520.626L41.414,520.904L41.47,521.164L41.885,521.403L42.947,521.792L43.13,521.792L44.316,522.448L43.782,523.245L43.442,523.47L42.857,523.09L42.318,522.972L41.648,523.019L40.957,523.481L40.735,523.857L40.663,524.212L40.339,524.458L39.997,524.221L40.073,524.071L39.939,523.201L39.639,522.691L39.114,522.139L38.621,522.052L38.598,521.56L38.479,521.142L37.945,520.442L37.001,519.713L36.22,519.431L35.564,519.568L35.241,519.893L34.736,519.998L34.45,519.687L33.912,519.285L33.767,518.657L33.783,518.264ZM6.531,603.03L6.894,602.717L7.54,602.556L7.738,602.626L8.119,603.01L8.027,603.273L7.46,603.473L6.871,603.495L6.499,603.395ZM22.928,539.878L23.142,539.449L23.577,539.205L23.719,539.268L23.553,539.634L23.61,540.036L23.92,540.625L24.446,541.226L24.717,541.404L25.078,541.414L25.673,542.252L25.354,542.297L25.301,542.019L24.626,541.77L24.243,541.781L23.885,541.349L23.365,540.228ZM23.266,538.343L23.362,538.407L23.266,538.978L23.081,538.624ZM-0.516,602.287L0.071,602.469L0.564,602.841L0.775,602.693L1.006,602.778L1.614,602.772L2.033,602.906L1.877,603.057L1.988,603.296L2.152,603.24L2.627,603.553L3.046,603.565L3.193,603.687L3.754,603.775L3.815,603.878L4.494,604.128L4.027,604.154L3.769,604.035L3.49,604.108L2.746,603.893L2.306,604.009L2.203,603.865L1.895,603.907L1.583,603.784L1.329,603.529L0.459,603.242L0.277,603.293L-0.173,603.019L-0.242,602.649L-0.429,602.598ZM-6.753,601.156L-5.754,601.222L-5.629,601.463L-5.105,601.278L-5.101,601.436L-4.704,601.294L-4.559,601.134L-4.319,601.42L-3.85,601.514L-3.645,601.338L-3.595,601.525L-2.932,601.474L-2.828,601.208L-2.072,601.378L-2.205,601.043L-1.496,601.303L-1.209,601.152L-1.153,600.913L-1.673,600.699L-1.997,600.389L-1.86,600.248L-1.543,600.462L-1.269,600.292L-1.222,600.029L-0.496,599.93L-0.01,600.31L0.203,600.917L0.158,601.123L-0.365,601.565L-0.918,601.336L-1.072,601.593L-0.679,602.278L-0.778,602.418L-0.987,602.203L-1.293,602.179L-1.415,602.333L-1.692,602.274L-1.98,602.019L-2.494,602.533L-2.85,602.199L-4.038,602.21L-4.195,601.952L-4.656,601.717L-5.054,601.63L-5.345,601.785L-5.731,601.715L-6.271,601.495ZM-7.717,601.206L-7.396,601.192L-7.342,601.417L-7.719,601.32ZM-7.345,599.655L-7.12,599.866L-7.329,599.882ZM-8.826,600.96L-8.723,600.931L-8.061,601.176L-8.101,601.349L-8.412,601.222L-8.832,601.252ZM-9.77,600.502L-9.556,600.475L-9.09,600.641L-9.037,601.305L-9.293,601.181L-9.47,600.77ZM-10.673,599.393L-10.34,599.185L-9.928,599.392L-9.722,600.037L-10.139,600.167L-10.013,600.612L-10.305,600.756L-10.61,600.665L-10.862,600.42L-10.685,600.071L-10.797,600.018L-10.759,599.478ZM-11.495,601.22L-11.287,600.89L-11.064,600.895L-10.957,601.127L-10.617,601.172L-10.769,600.962L-10.134,600.965L-10.018,601.17L-10.173,601.512L-10.558,601.379L-10.455,601.788L-10.876,601.435L-10.931,601.703L-11.106,601.556L-11.276,601.777L-11.293,601.448ZM-15.528,601.44L-15.19,601.078L-14.902,601.066L-14.703,600.878L-14.768,600.379L-14.64,600.231L-14.09,600.377L-13.839,600.042L-13.897,599.523L-13.628,599.295L-13.37,599.358L-13.116,599.593L-12.666,599.327L-12.548,599.47L-12.666,599.961L-13.065,600.029L-13.211,600.337L-13.04,600.541L-12.714,600.628L-12.138,600.643L-11.625,600.786L-11.651,601.237L-11.965,601.76L-12.243,601.75L-12.806,601.423L-13.141,601.679L-13.469,601.649L-13.78,601.834L-14.095,601.499L-14.252,601.623L-14.261,601.966L-14.406,601.791L-14.684,601.88L-14.625,601.504L-14.793,601.235L-15.359,601.811L-15.568,601.656ZM-16.957,598.528L-16.72,598.55L-16.748,598.727L-17.02,598.75ZM-18.636,599.642L-18.258,599.544L-17.899,599.8L-17.386,599.744L-16.463,599.801L-16.013,599.654L-15.683,598.85L-15.446,598.82L-15.204,598.981L-15.056,599.352L-15.716,599.82L-15.831,600.399L-16.036,600.599L-16.659,600.596L-17.117,599.987L-17.644,600.032L-18.334,599.849L-18.452,600.116L-18.607,600.022ZM-20.558,597.459L-20.356,597.325L-19.836,597.399L-19.204,597.675L-19.122,598.01L-19.227,598.188L-18.989,598.51L-18.7,598.495L-18.441,598.715L-17.814,598.703L-18.074,598.895L-18.83,598.845L-19.199,599.221L-19.206,599.443L-19.48,599.565L-19.575,599.414L-19.829,599.637L-19.833,600.049L-19.978,600.03L-19.994,599.618L-20.284,599.683L-20.435,599.277L-20.632,599.145L-20.498,598.992L-19.757,599.091L-19.653,598.666L-19.983,598.534L-20.116,598.237L-20.602,597.573ZM-23.433,598.648L-22.931,598.93L-23.025,599.025L-23.456,598.806ZM-24.337,598.564L-23.931,598.847L-23.871,599.038L-24.274,598.844ZM-23.773,596.934L-23.413,596.696L-23.17,597.046L-23.32,597.432L-23.659,597.372ZM-25.535,599.754L-25.339,599.649L-25.228,599.853L-25.269,600.202L-25.474,600.135L-25.72,600.271ZM-26.478,600.189L-26.233,600.156L-26.281,600.567L-26.644,600.605ZM-30.718,592.507L-30.528,592.601L-30.241,592.464L-29.782,592.554L-29.437,593.147L-29.761,593.512L-30.263,593.611L-30.471,593.56L-30.803,593.208L-30.905,592.951ZM-35.685,593.342L-35.538,593.229L-35.193,593.594L-34.875,593.71L-34.499,594.05L-34.517,594.272L-34.237,594.703L-34.003,595.379L-33.662,595.717L-33.633,596.149L-32.938,596.526L-32.679,596.878L-33.026,596.871L-33.137,596.721L-33.658,596.618L-33.796,596.257L-34.277,595.519L-34.498,594.679L-34.873,594.199L-35.173,594.128L-35.464,593.816ZM-35.413,590.519L-35.238,590.515L-34.959,590.756L-34.871,591.039L-35.231,591.245L-35.403,591.198ZM-36.831,591.191L-36.543,591.371L-36.387,591.937L-36.702,591.686ZM-36.817,589.421L-36.643,589.335L-36.43,589.594L-36.476,589.826L-36.805,589.828ZM-41.247,588.592L-40.786,588.603L-40.403,588.406L-39.704,588.533L-39.43,588.188L-38.903,587.712L-38.676,587.681L-38.502,588.148L-38.784,588.258L-39.073,588.552L-39.543,588.733L-39.257,588.998L-39.355,589.214L-39.592,589.181L-40.219,588.767L-40.58,588.833L-40.843,589.235L-41.014,589.141L-41.302,588.709ZM-45.528,582.407L-45.158,582.686L-45.522,582.713ZM-52.043,575.894L-51.73,576.118L-51.766,576.299L-52.088,576.016ZM-52.474,575.523L-52.285,575.683L-52.376,575.858ZM-52.754,575.161L-52.533,575.484L-52.723,575.4ZM-56.307,576.592L-56.115,576.456L-55.736,576.45L-55.401,576.675L-54.788,576.485L-54.141,576.789L-54.529,576.891L-54.724,577.073L-54.9,577.779L-55.224,577.607L-55.321,577.156L-55.922,576.983ZM-58.142,570.889L-57.15,570.768L-56.617,570.975L-55.17,571.916L-54.934,572.531L-54.618,572.816L-54.387,573.665L-54.414,573.789L-54.973,573.552L-55.17,573.152L-55.658,573.438L-55.837,573.442L-56.366,573.04L-56.895,573.07L-57.201,572.655L-57.252,572.317L-57.092,571.916L-57.393,571.317L-58.001,571.169ZM197.572,575.992L197.657,575.794L197.875,575.919L197.918,576.281L197.594,576.15ZM196.901,577.424L197.714,576.73L198.005,577.206L198.238,577.224L198.085,577.771L197.716,577.91L197.062,577.685ZM196.325,577.662L196.58,577.103L196.76,577.221L196.489,577.735ZM195.983,577.031L196.089,576.545L195.961,576.279L196.116,576.08L195.804,575.879L195.615,575.439L195.604,575.161L195.752,575.044L196.115,575.147L196.271,575.345L196.486,575.32L196.838,575.485L197.215,576.546L197.153,576.814L196.742,576.974L196.469,576.838L196.196,577.194ZM194.171,574.894L194.085,574.447L194.175,574.409L195.273,575.002L195.152,575.246L195.29,575.69L195.309,576.485L194.789,576.131L194.399,575.451ZM188.638,567.212L188.593,566.881L188.792,567.031ZM188.654,568.252L188.621,568.054L188.848,567.69L189.244,567.83L189.277,567.978L188.999,568.338ZM188.019,567.592L188.246,567.279L188.386,566.857L188.42,567.206L188.315,567.782ZM190.783,579.307L191.049,579.176L191.101,579.54ZM187.094,570.02L187.086,569.641L187.288,569.748L187.825,570.269L188.121,570.66L187.957,570.822L187.511,570.53L187.367,570.549ZM186.6,569.117L186.687,568.471L186.937,568.173L187.428,568.155L187.739,567.894L188.247,568.027L188.385,568.241L188.23,568.674L188.497,569.176L188.298,569.379L187.684,569.74L187.201,569.431L186.779,569.361ZM187.816,576.498L188.083,576.218L188.148,576.527L187.925,576.678ZM188.11,581.053L188.251,581.008L188.673,581.79L188.378,581.677ZM185.891,575.45L185.981,575.257L185.871,574.855L186.239,574.953L186.32,575.156L186.132,575.732ZM185.544,575.151L185.709,575.035L185.768,575.274ZM185.722,576.899L185.657,576.261L185.729,576.059L186.239,575.963L186.426,576.018L186.467,576.256L186.308,576.607L186.464,576.672L186.689,576.314L186.677,576.01L186.916,576.07L187.066,575.534L187.362,575.454L187.689,575.628L187.737,576.043L187.58,576.345L187.257,576.341L187.129,576.632L187.437,576.692L187.483,576.942L187.187,577.187L186.951,577.62L187.012,578.295L186.496,577.9L186.633,577.42L186.457,576.918L185.905,576.727ZM184.396,573.1L184.518,572.904L184.673,572.125L185.076,571.926L185.201,571.743L184.841,571.764L184.729,571.462L185.002,571.534L185.067,571.269L184.396,571.038L184.547,570.782L184.219,570.269L184.464,569.841L185.19,569.781L186.292,569.548L186.826,569.964L187.146,570.384L187.217,570.856L187.441,570.826L187.782,571.204L188.141,571.431L188.387,571.314L189.505,571.799L189.799,572.076L190.54,572.627L190.86,573.427L191.364,573.466L191.666,573.955L191.858,574.12L192.441,574.283L192.767,574.59L192.628,574.681L192.236,574.482L190.877,574.235L190.898,574.451L190.706,575.048L190.892,575.043L191.004,574.667L191.168,574.749L191.498,574.566L191.655,574.78L191.989,574.761L192.206,574.896L191.655,575.183L191.856,575.375L192.3,575.073L192.629,575.336L192.905,575.343L193.265,575.848L193.408,575.864L193.332,576.243L193.005,576.29L193.106,576.486L193.493,576.513L193.644,576.403L193.589,576.09L193.724,575.784L193.909,575.872L194.188,576.433L194.032,576.732L194.174,576.943L194.042,577.666L193.682,578.077L194.011,578.131L194.298,577.607L194.552,577.592L195.003,578.901L195.272,579.328L195.193,580.112L194.636,580.368L194.125,580.196L193.949,580.393L193.601,580.237L193.504,580.003L192.916,580.215L193.066,579.784L193.508,579.707L193.438,579.45L193.052,579.278L192.728,579.293L192.016,578.97L192.073,578.678L191.979,577.882L191.728,577.901L191.683,578.334L191.573,577.644L191.636,577.421L191.382,577.226L191.423,577.607L191.051,577.882L191.489,578.477L191.335,578.945L190.486,578.823L190.349,578.617L190.489,578.154L189.998,577.597L189.699,577.731L189.439,577.457L189.108,577.543L189.458,577.989L189.875,578.32L190.12,578.756L190.088,579.025L190.357,579.059L190.977,579.897L191.406,579.942L191.22,579.587L191.554,579.347L192.129,579.623L192.459,580.404L192.275,580.581L191.835,580.195L191.741,580.276L192.466,581.258L192.012,581.408L191.537,581.335L191.377,580.957L190.98,580.8L189.841,579.902L189.639,579.81L189.431,579.275L189.223,579.271L188.971,578.915L189.404,578.717L188.916,578.639L188.713,577.851L188.261,578.198L188.052,578.078L187.813,578.291L187.586,578.063L187.504,577.487L187.951,577.129L188.253,577.483L188.473,577.269L188.212,577.145L188.222,576.862L188.396,576.662L188.641,576.683L188.887,576.288L188.239,575.809L188.428,575.662L188.115,575.533L188.038,575.085L187.714,575.34L186.782,575.016L186.662,574.854L186.909,574.782L186.668,574.501L186.64,574.258L186.191,574.273L186.401,574.615L186.275,574.748L185.705,574.649L185.341,574.349L185.417,573.953L185.815,573.726L186.491,573.897L186.845,573.533L186.446,573.18L186.139,573.164L185.998,573.352L185.826,573.285L185.885,573.051L185.768,572.788L185.743,572.344L185.634,572.264L185.534,572.633L185.259,573.186L184.992,573.507L184.564,573.369ZM180.949,563.035L181.118,562.803L181.391,562.954L181.058,563.28ZM183.985,573.658L184.141,573.409L184.321,573.395L184.488,573.715L184.464,574.066L184.305,574.094ZM182.19,574.225L182.573,573.951L182.674,574.227L183.081,573.866L183.052,573.339L183.162,573.319L183.229,574.021L182.941,574.281L182.748,574.74L182.439,574.713L182.501,574.48ZM179.824,567.152L179.974,566.735L180.177,566.552L180.215,566.304L180.707,566.16L180.669,565.986L181.165,566.119L181.496,566.61L181.874,566.88L182.338,566.749L182.515,566.844L182.611,566.627L182.09,566.475L181.734,566.014L181.592,565.664L180.914,565.309L180.969,564.913L181.418,564.587L182.246,564.592L182.633,564.534L183.417,564.6L183.916,564.584L183.99,564.459L184.853,564.259L185.452,564.596L185.833,565.061L185.997,565.41L186.179,565.516L186.543,565.475L186.883,565.708L187.056,565.982L187.657,566.157L187.929,566.527L188.225,566.673L187.847,567.073L187.639,567.445L187.303,567.729L187.031,567.703L186.56,567.829L185.867,567.883L186.043,568.17L185.807,568.613L185.156,568.644L184.811,568.546L184.729,568.91L184.546,569.112L184.176,569.244L183.89,569.227L183.666,568.674L183.435,568.518L183.117,569.076L183.371,569.204L183.526,569.8L183.186,569.928L183.219,570.14L183.474,570.425L183.412,570.809L183.508,571.223L183.353,571.629L183.493,571.865L183.487,572.325L183.357,572.444L182.948,572.463L182.943,573.201L182.676,573.148L182.39,572.864L182.157,572.485L181.924,571.778L181.599,571.256L181.479,570.756L181.594,570.378L181.435,570.02L181.458,569.291L181.222,569.163L180.894,569.27L180.815,568.744L180.404,568.469L180.135,568.015L180.08,567.725ZM174.056,555.948L174.857,556.396L175.049,556.674L175.267,556.673L175.636,557.492L175.907,557.403L176.134,557.064L176.337,557.167L176.628,557.093L176.986,557.191L177.735,556.869L177.871,557.465L178.381,557.844L178.515,558.175L178.923,558.422L179.301,558.927L179.659,559.21L179.977,560.128L180.405,560.425L180.596,560.831L180.469,560.885L180.3,560.601L179.504,559.989L179.126,559.283L178.777,559.126L178.54,558.819L178.237,558.913L178.816,559.457L178.943,559.662L178.801,559.87L179.553,560.504L179.987,560.72L180.084,561.134L180.664,561.763L180.374,561.81L180.801,562.408L180.857,562.584L180.617,563.103L180.271,563.024L180.023,563.108L180.151,563.312L180.052,564.087L179.658,564.801L179.354,565.073L179.39,565.298L179.06,565.862L178.625,565.972L178.316,565.429L177.992,564.563L178.144,563.946L178.319,563.729L178.023,563.597L177.872,563.149L178.065,563.048L178.319,563.25L178.361,563.073L177.497,562.327L177.368,561.951L176.987,561.637L176.753,561.121L176.509,560.887L176.381,560.033L176.048,559.554L175.819,558.944L175.483,558.394L175.454,558.089L174.986,557.564L174.654,557.341L174.376,556.874L174.094,556.236ZM173.524,555.141L174.11,555.289L174.738,555.996L174.605,556.071L174.068,555.409L173.703,555.381ZM171.138,551.686L171.484,552.092L171.571,552.395L171.376,552.245ZM173.381,564.774L173.597,564.635L173.563,564.459L173.853,563.914L173.667,563.484L174.075,562.912L174.361,562.915L174.889,563.367L175.09,563.238L175.465,563.542L175.849,563.6L176.4,563.41L176.75,563.406L177.08,563.872L177.146,564.202L176.784,564.06L176.508,564.155L176.536,564.304L176.893,564.377L177.145,564.63L178.116,566.324L178.24,566.794L178.528,567.107L178.642,567.487L179.189,568.337L179.474,569.015L179.619,569.77L179.452,569.813L179.732,570.308L180.248,571.865L180.33,572.632L180.151,572.643L179.589,572.311L179.271,571.793L178.838,571.5L177.826,570.288L177.794,569.956L178.08,569.708L177.752,569.591L177.421,569.908L177.042,569.392L176.906,569.539L176.571,569.337L176.286,569.028L176.252,568.796L176.084,569.001L175.888,568.886L175.435,569.002L174.971,568.452L175.249,568.352L175.453,568.499L175.578,568.371L175.336,567.694L175.519,567.264L175.536,566.989L174.794,566.59L175.031,566.074L174.93,565.946L175.072,565.657L175.03,565.291L174.512,565.326L174.254,565.599L173.899,565.139ZM171.079,557.127L171.275,556.944L171.56,556.913L171.887,557.19L171.482,557.347ZM172.994,565.892L172.964,565.559L172.798,565.137L173.151,564.974L173.768,565.24L174.129,565.664L174.342,565.738L174.537,565.469L174.896,565.437L174.814,566.044L174.484,566.238L174.384,567.411L174.194,567.422L173.654,567.787L173.505,567.772L173.361,567.088L173.646,566.674L173.568,566.341L173.234,566.407L173.21,566.207L172.96,566.057ZM168.88,555.822L168.983,555.694L169.191,556.056ZM169.543,558.23L169.901,557.841L170.041,558.178L169.845,558.367ZM168.594,561.432L168.357,560.262L168.531,559.982L168.663,560.01L168.975,559.5L168.927,559.151L168.589,558.591L169.054,558.478L169.151,558.835L169.433,559.183L169.727,558.67L170.156,558.594L170.438,558.657L170.593,558.266L171.018,557.791L171.322,558.097L171.968,558.127L172.427,558.373L172.401,558.936L172.095,559.564L172.245,559.87L172.428,559.853L172.431,559.425L172.69,558.583L172.884,558.442L173.478,558.662L174.161,558.534L174.381,558.698L174.83,558.68L175.2,559.135L175.272,559.592L175.038,559.974L174.408,559.81L174.278,559.904L174.529,560.116L174.825,560.158L175.448,560.51L175.199,560.79L174.839,560.91L174.951,561.076L175.282,561.072L175.57,560.816L175.856,561.409L176.194,561.801L176.648,562.687L176.525,563.023L175.93,563.277L175.657,563.272L174.83,562.836L173.691,562.46L173.202,562.243L172.929,562.506L172.744,562.352L172.745,562.58L173.287,562.817L173.624,562.778L173.374,563.069L173.509,563.209L173.644,563.682L173.605,564.049L173.311,564.751L172.472,564.653L172.387,564.407L171.613,564.019L171.154,563.507L171.047,563.806L170.69,563.599L170.401,563.118L170.414,562.937L169.995,562.441L169.981,562.275L169.645,561.962L169.212,561.867L169.022,561.571ZM128.723,549.49L129.125,549.536L129.33,549.813L128.962,549.923ZM127.316,549.436L127.527,549.314L128.357,549.391L128.341,549.607L128.057,549.712ZM121.84,546.158L122.173,545.883L122.542,545.825L122.759,545.912L122.549,546.299ZM121.329,548.026L121.327,547.434L121.703,547.287L122.054,547.864L121.932,548.179L121.426,548.298ZM121.627,551.203L121.645,551.105L122.216,550.725L122.255,550.968L121.734,551.426ZM120.314,555.09L120.414,554.936L120.412,554.448L120.731,554.336L120.662,554.054L120.925,553.658L121.147,553.589L121.078,553.313L121.479,553.041L121.586,552.824L122.142,552.253L122.371,551.418L122.719,551.08L122.649,550.811L122.739,550.313L123.092,550.043L123.179,550.33L123.513,550.281L123.312,550.653L123.45,550.756L123.765,550.53L123.893,550.667L123.766,550.936L122.98,551.831L122.38,552.78L122.321,553.336L121.895,553.791L122.359,554.138L122.117,554.451L121.796,554.537L121.474,554.465L121.27,554.877L121.138,554.848L120.527,555.229ZM119.894,551.443L120.339,549.545L120.519,549.81L120.678,549.705L120.579,549.261L121.136,548.629L121.172,548.997L121.026,549.232L121.038,549.795L120.783,550.074L121.09,550.333L120.817,551.027L120.875,551.337L120.704,552.069L120.338,551.794L120.28,551.627L119.924,551.612ZM119.269,547.649L119.457,547.419L119.704,547.527L119.969,547.832L119.665,548.17Z"/>
 <path data-state="AZ" d="M144.576,407.046L145.029,406.516L146.582,407.085L148.351,406.915L148.37,406.119L149.81,405.144L150.176,403.637L149.692,400.823L148.658,400.459L148.142,400.616L147.373,399.964L147.108,400.251L146.438,398.757L147.16,397.561L147.837,394.855L146.999,393.868L147.845,392.736L147.511,391.649L148.804,391.726L151.183,389.437L151.87,389.092L151.78,388.154L152.463,386.088L153.037,385.961L153.186,384.51L152.968,383.186L153.227,382.216L153.645,382.179L153.723,381.093L153.338,380.617L155.62,378.745L155.881,377.415L156.512,376.978L158.132,376.715L158.939,376.072L160.133,375.884L160.27,375.53L162.152,374.594L162.269,373.636L161.75,372.455L160.904,371.911L159.252,369.588L158.428,369.286L158.778,368.194L157.987,363.252L156.729,361.742L156.536,360.321L155.714,359.016L156.342,356.195L157.095,354.44L156.531,353.887L158.056,353.328L158.331,351.939L158.429,348.39L158.29,347.06L157.761,346.012L157.726,344.842L158.251,344.225L158.646,342.238L158.213,341.39L158.555,340.676L158.225,339.988L158.613,339.043L158.519,337.841L158.991,336.812L159.661,336.464L159.139,335.738L158.743,333.713L159.165,332.935L159.026,331.302L160.743,331.023L161.43,330.578L161.696,330.911L162.558,330.581L163.641,330.815L163.674,331.323L165.28,331.258L166.1,331.479L166.984,333.074L166.75,333.59L167.903,334.837L169.482,334.922L171.7,331.684L172.076,331.455L172.994,327.024L173.877,321.743L175.5,313.298L188.161,315.682L202.234,318.217L222.115,321.571L228.286,322.549L238.474,324.106L238.835,324.301L253.808,326.53L264.144,327.97L259.592,360.927L258.889,365.534L258.873,366.128L256.386,384.139L254.685,395.961L254.362,398.791L253.992,400.98L246.354,456.259L241.967,455.608L228.177,453.635L219.402,452.331L207.624,450.486L184.679,437.212L171.231,429.468L164.821,425.579L141.83,411.734L142.419,410.533L142.15,410.139L142.448,408.999L143.044,408.799Z"/>
@@ -492,119 +445,138 @@
 <path data-state="VT" d="M857.07,117.812L861.013,116.748L867.43,115.156L869.703,114.765L873.184,113.984L876.35,113.135L885.649,110.513L885.187,111.24L886.353,112.729L885.723,114.409L885.817,115.677L885.238,116.879L886.358,118.644L887.106,119.215L887.357,120.624L886.806,121.031L887.435,122.058L886.647,122.709L886.477,123.663L885.885,124.606L884.606,125.222L884.582,126.279L883.785,126.91L883.16,126.809L881.348,127.924L881.082,129.223L881.586,129.78L881.526,130.947L882.421,132.089L882.65,132.979L882.309,134.461L881.845,135.469L882.259,137.08L881.508,138.625L881.875,139.824L881.749,140.745L880.878,141.836L880.58,142.801L880.765,144.956L880.07,145.799L880.142,147.276L880.595,147.868L880.674,150.575L881.306,151.628L880.928,153.017L881.362,155.696L881.961,156.859L881.604,157.616L882.198,158.517L881.955,159.488L881.256,159.867L881.471,160.965L881.303,162.483L882.483,164.248L882.781,163.971L883.554,164.847L870.525,167.639L869.761,166.513L869.82,165.752L869.477,164.343L867.862,156.224L866.384,149.67L865.508,149.299L865.148,148.318L864.064,148.582L863.97,149.935L863.279,149.578L863.153,147.312L863.616,145.246L862.671,144.328L862.66,143.042L861.783,141.905L861.365,139.933L860.73,139.543L860.82,137.932L860.693,136.172L861.477,134.714L861.536,133.975L860.614,131.906L860.921,130.222L860.377,128.966L858.902,127.555L858.355,126.281L858.437,125.638L858.125,123.865L858.432,122.685L857.441,121.78L857.375,120.53L857.628,119.866Z"/>
 <path data-state="LA" d="M637.051,497.393L638.056,498.55L638.519,500.002L638.457,501.983L637.907,504.078L637.62,504.041L638.052,502.248L638.187,500.282L638.049,499.392ZM627.983,497.914L628.703,497.12L630.836,495.383L630.996,495.646L630.171,496.938L630.351,497.473L631.31,498.05L630.326,499.098L630.05,498.199L629.361,498.443L628.153,498.333ZM623.231,510.166L624.42,509.89L623.839,510.75ZM609.026,520.766L609.492,520.212L610.492,521.42L609.939,521.726ZM605.419,521.308L608.23,521.789L606.887,522.023ZM601.697,522.376L603.455,521.907L603.616,522.23L601.787,522.722ZM576.063,511.469L576.748,510.914L577.601,510.975L577.791,510.459L579.352,510.509L581.031,511.625L581.662,511.46L582.112,512.006L581.081,512.755L581.045,513.537L580.07,513.951L575.797,511.89ZM534.542,434.671L547.093,434.407L552.926,434.237L563.578,434.014L574.025,433.697L588.875,433.082L588.247,434.096L588.091,435.046L588.723,435.446L589.647,434.888L589.512,433.579L590.254,433.463L590.937,434.841L590.841,435.612L589.468,436.704L589.165,437.446L589.168,438.84L591.306,439.319L591.198,439.855L590.143,440.557L589.568,441.332L589.824,442.34L590.247,442.593L591.583,442.014L591.945,441.092L592.46,441.791L591.953,442.544L591.03,443.201L592.513,444.105L592.881,444.595L592.206,444.768L590.997,443.889L590.658,443.926L590.511,445.072L592.131,445.95L592.793,445.523L593.375,446.179L592.85,446.599L592.909,447.734L594.499,447.983L594.867,447.178L595.159,447.516L594.148,449.12L593.319,449.007L593.511,450.037L593.212,450.877L592.222,450.321L591.771,450.874L589.943,451.361L589.884,452.913L592.088,453.016L591.888,451.81L592.94,452.225L592.394,453.608L591.594,454.081L591.287,454.803L590.356,454.086L590.039,454.592L591.368,455.034L591.419,456.012L590.128,456.353L589.672,456.866L589.859,457.837L588.286,459.445L588.719,459.835L588.403,460.4L587.905,460.092L587.725,459.258L586.911,459.513L586.519,461.375L588.526,461.492L588.268,461.857L586.689,462.033L585.965,462.755L585.996,464.83L584.755,464.89L584.039,464.376L583.729,465.135L584.378,465.692L585.608,465.378L585.914,465.99L585.119,466.715L583.754,467.132L583.891,468.575L584.86,469.998L584.887,470.565L584.271,470.732L583.69,470.191L583.368,469.227L582.781,470.018L583.28,470.308L583.39,471.184L584.255,471.868L584.156,472.715L582.997,473.161L581.743,473.082L581.708,473.828L582.567,474.375L582.812,475.167L582.16,476.098L582.254,476.641L583.411,477.566L582.977,478.722L582.092,479.174L597.801,478.385L607.11,477.834L618.568,477.077L619.1,477.747L618.642,478.208L618.77,479.082L618.307,479.484L617.841,481.963L617.385,482.482L617.709,483.166L617.124,484.927L617.699,485.164L618.099,486.998L618.841,487.615L619.17,488.357L619.963,488.677L620.718,489.468L620.788,490.52L621.938,491.951L622.028,493.295L622.394,494.561L623.372,495.474L624.213,495.417L623.067,496.179L622.497,496.081L621.377,497.251L621.285,498L620.462,498.348L620.724,499.113L618.735,498.912L618.019,499.838L618.456,501.139L619.735,501.251L620.618,500.704L620.412,501.871L621.019,502.496L622.1,502.796L623.001,502.52L623.385,501.927L623.604,499.937L623.446,499.694L625.061,498.528L625.213,497.657L626.523,498.231L627.428,498.051L627.456,498.46L626.308,499.205L626.353,499.867L627.431,500.124L627.725,501.297L628.761,500.95L629.422,499.3L630.581,499.706L630.376,500.796L629.462,500.861L628.678,501.777L630.223,501.629L630.052,502.208L627.9,502.79L628.906,504.01L629.651,503.527L629.239,504.71L628.569,504.249L627.567,504.104L626.796,505.233L626.858,507.163L626.23,507.304L625.692,505.661L624.915,505.694L624.861,506.988L625.856,508.053L624.894,507.474L623.899,507.444L623.357,507.813L622.29,507.767L623.612,508.44L623.654,509.063L621.965,508.219L621.998,508.705L622.887,509.271L622.057,509.6L622.172,510.256L622.997,510.905L624.425,511.023L624.384,511.456L625.264,511.865L625.239,512.531L625.795,513.391L626.393,512.764L626.775,513.148L628.335,513.079L629.514,513.66L629.686,513.062L631.228,514.731L631.946,513.82L633.802,515.854L633.885,517L634.33,517.222L635.567,516.585L636.122,517.345L634.44,517.761L634.345,518.412L635.485,518.387L634.991,519.439L634.176,519.03L633.458,520.956L633.662,521.8L632.118,521.208L631.9,520.15L631.309,519.88L629.293,522.716L628.281,523.586L628.689,522.251L629.29,521.643L629.58,520.685L630.191,520.233L630.117,519.184L630.725,518.692L630.584,517.706L629.841,517.29L629.642,518.514L628.545,519.157L627.654,518.653L626.557,517.225L624.088,516.554L623.32,515.726L619.307,515.347L618.474,515.674L615.245,518.67L612.114,521.108L611.605,520.943L611.841,520.129L610.969,519.87L610.779,519.081L611.202,518.997L610.233,517.104L609.421,516.626L608.784,516.683L608.887,517.223L608.361,517.957L608.415,516.471L607.642,515.423L606.793,516.722L605.784,516.507L605.312,516.963L604.781,516.389L604.385,516.938L605.165,518.123L604.309,518.094L603.841,518.647L603.617,519.713L603.04,519.609L602.747,520.738L602.165,520.536L600.85,521.252L600.504,522.753L599.349,522.504L599.682,522.077L598.687,520.824L597.349,519.783L596.581,520.077L594.712,519.765L593.968,519.16L592.181,519.017L591.02,518.587L589.827,517.476L590.665,517.161L591.105,516.008L591.684,516.213L592.586,517.182L593.061,516.729L593.058,518.056L594.139,518.332L593.752,516.323L592.058,515.16L592.017,514.343L591.23,514.246L590.632,515.076L589.723,515.374L589.826,514.569L589.124,514.74L589.299,513.97L589.91,513.394L589.164,512.65L587.158,513.723L586.376,512.199L585.675,512.388L585.143,510.11L583.304,510.176L583.699,509.514L583.693,507.855L581.42,507.646L580.51,507.881L579.131,508.684L578.588,507.595L579.118,506.771L579.685,506.805L579.505,505.915L578.369,505.808L577.4,506.28L576.749,505.917L576.641,506.702L574.976,507.475L574.015,508.178L573.566,507.572L572.308,507.935L572.333,508.558L572.992,509.117L574.27,509.221L573.658,509.832L574.274,511.036L575.671,510.569L576.039,510.904L575.131,511.215L575.572,511.587L573.313,511.797L571.511,512.825L570.102,513.056L564.252,512.044L561.747,511.313L557.652,509.478L556.007,508.906L553.088,508.214L550.754,508.185L549.773,508.486L547.227,508.418L543.143,509.01L541.948,509.293L540.134,510.369L538.892,508.563L538.243,507.992L538.374,507.501L539.554,506.597L540.438,505.133L540.896,503.6L541.864,502.816L542.615,501.803L541.973,501.447L542.784,500.061L542.114,498.535L542.447,497.765L542.352,496.733L541.205,495.744L541.591,494.29L542.479,493.272L542.086,491.504L541.584,491.047L541.776,490.261L542.741,489.651L542.848,488.32L543.674,487.81L543.848,486.379L544.445,485.133L545.056,484.472L544.745,483.248L544.935,482.5L545.551,482.054L544.688,481.001L544.741,480.354L545.635,479.92L545.468,478.868L544.896,478.277L545.261,476.272L543.949,476.54L543.477,474.341L543.062,474.391L542.207,473.492L542.598,472.445L542.366,471.492L541.805,471.212L541.859,470.584L540.874,469.903L541.276,469.365L541.053,468.685L540.151,468.589L539.515,467.978L539.078,466.989L539.548,466.43L539.321,465.554L539.785,464.721L539.208,463.638L539.331,462.969L538.273,461.916L537.618,460.305L536.366,459.725L535.58,458.331L535.025,458.108Z"/>
 <path data-state="RI" d="M910.01,182.788L911.152,182.849L912.287,186.388L911.351,187.574L910.483,185.731L910.276,184.486L909.581,184.224L910.502,187.211L909.498,187.437L909.557,188.133L909.007,188.421L908.671,187.393L909.128,185.341L909.251,183.926ZM907.354,183.841L907.61,183.63L908.515,184.447L908.258,184.657ZM907.941,188.419L908.036,187.358L907.686,186.983L907.692,185.824L908.026,186.141L908.454,187.755ZM906.232,195.981L906.479,194.291L906.843,194.48L907.282,195.909ZM901.253,193.504L901.58,192.83L901.028,191.431L901.692,191.096L900.834,187.077L900.091,184.226L898.818,180.053L898.289,178.021L904.965,176.003L905.704,178.793L906.372,178.494L906.664,180.062L907.237,181.048L908.511,181.379L909.336,182.135L909.389,183.035L908.779,184.031L908.217,183.327L908.274,182.601L906.894,181.87L906.226,181.234L907.167,183.606L905.797,183.623L906.694,184.178L907.129,185.587L906.483,185.981L907.217,186.864L907.578,188.231L907.219,189.24L907.116,190.751L906.383,190.822L904.889,191.58L903.474,192.641L901.391,193.793Z"/>
-        </g>
-      </svg>
-    </div>
-    <div class="map-caption">Tap / click any glowing state ✦</div>
-  </section>
-
-  <section id="log">
-    <div class="section-head">
-      <div class="section-tag">Trip Log</div>
-      <div class="section-title">Where I've Been<span class="dot">.</span></div>
-      <div class="section-rule"></div>
-    </div>
-    <div class="grid" id="stateGrid"></div>
-  </section>
-
-  <section id="badminton">
-    <div class="section-head">
-      <div class="section-tag">Sport</div>
-      <div class="section-title">Badminton Gear<span class="dot">.</span></div>
-      <div class="section-rule"></div>
-    </div>
-    <div class="grid">
-      <div class="card">
-        <div class="icon">🏸</div>
-        <h3>Racket</h3>
-        <p>Add the racket you play with and why you like it.</p>
-        <a class="go" href="#" target="_blank" rel="noopener">View link →</a>
+          </g>
+        </svg>
       </div>
-      <div class="card">
-        <div class="icon">👟</div>
-        <h3>Shoes</h3>
-        <p>Court shoes — grip, comfort, notes on sizing.</p>
-        <a class="go" href="#" target="_blank" rel="noopener">View link →</a>
-      </div>
-      <div class="card">
-        <div class="icon">🎽</div>
-        <h3>Apparel</h3>
-        <p>Jerseys, shorts, sweatbands — whatever you wear to play.</p>
-        <a class="go" href="#" target="_blank" rel="noopener">View link →</a>
-      </div>
-      <div class="card">
-        <div class="icon">🧵</div>
-        <h3>Strings &amp; Grips</h3>
-        <p>Stringing tension, grip type, replacement schedule.</p>
-        <a class="go" href="#" target="_blank" rel="noopener">View link →</a>
-      </div>
+      <div class="map-caption">Tap / click any glowing state ✦</div>
     </div>
   </section>
 
-  <section id="desk">
-    <div class="section-head">
-      <div class="section-tag">Setup</div>
-      <div class="section-title">Desk Links<span class="dot">.</span></div>
-      <div class="section-rule"></div>
+  <section id="log" class="bg-alt">
+    <div class="section-inner">
+      <div class="section-head">
+        <span class="eyebrow">Trip Log</span>
+        <div class="section-title">Where I've Been</div>
+      </div>
+      <div class="grid" id="stateGrid"></div>
     </div>
-    <div class="grid">
-      <div class="card">
-        <div class="icon">🖥️</div>
-        <h3>Monitor</h3>
-        <p>Your display — size, refresh rate, why you picked it.</p>
-        <a class="go" href="#" target="_blank" rel="noopener">View link →</a>
+  </section>
+
+  <section id="badminton" class="bg-white">
+    <div class="section-inner">
+      <div class="section-head">
+        <span class="eyebrow">Sport</span>
+        <div class="section-title">Badminton Gear</div>
       </div>
-      <div class="card">
-        <div class="icon">⌨️</div>
-        <h3>Keyboard</h3>
-        <p>Switches, layout, keycaps.</p>
-        <a class="go" href="#" target="_blank" rel="noopener">View link →</a>
-      </div>
-      <div class="card">
-        <div class="icon">🖱️</div>
-        <h3>Mouse</h3>
-        <p>DPI, grip style, wired/wireless.</p>
-        <a class="go" href="#" target="_blank" rel="noopener">View link →</a>
-      </div>
-      <div class="card">
-        <div class="icon">🪑</div>
-        <h3>Chair &amp; Desk</h3>
-        <p>Standing desk, chair model, cable management.</p>
-        <a class="go" href="#" target="_blank" rel="noopener">View link →</a>
+      <div class="grid">
+        <div class="card">
+          <div class="icon-badge">🏸</div>
+          <h3>Racket</h3>
+          <p>Add the racket you play with and why you like it.</p>
+          <a class="go" href="#" target="_blank" rel="noopener">View link →</a>
+        </div>
+        <div class="card">
+          <div class="icon-badge">👟</div>
+          <h3>Shoes</h3>
+          <p>Court shoes — grip, comfort, notes on sizing.</p>
+          <a class="go" href="#" target="_blank" rel="noopener">View link →</a>
+        </div>
+        <div class="card">
+          <div class="icon-badge">🎽</div>
+          <h3>Apparel</h3>
+          <p>Jerseys, shorts, sweatbands — whatever you wear to play.</p>
+          <a class="go" href="#" target="_blank" rel="noopener">View link →</a>
+        </div>
+        <div class="card">
+          <div class="icon-badge">🧵</div>
+          <h3>Strings &amp; Grips</h3>
+          <p>Stringing tension, grip type, replacement schedule.</p>
+          <a class="go" href="#" target="_blank" rel="noopener">View link →</a>
+        </div>
       </div>
     </div>
   </section>
 
-  <section id="electronics">
-    <div class="section-head">
-      <div class="section-tag">Tech</div>
-      <div class="section-title">Electronics<span class="dot">.</span></div>
-      <div class="section-rule"></div>
+  <section id="desk" class="bg-alt">
+    <div class="section-inner">
+      <div class="section-head">
+        <span class="eyebrow">Setup</span>
+        <div class="section-title">Desk Links</div>
+      </div>
+      <div class="grid">
+        <div class="card">
+          <div class="icon-badge">🖥️</div>
+          <h3>Monitor</h3>
+          <p>Your display — size, refresh rate, why you picked it.</p>
+          <a class="go" href="#" target="_blank" rel="noopener">View link →</a>
+        </div>
+        <div class="card">
+          <div class="icon-badge">⌨️</div>
+          <h3>Keyboard</h3>
+          <p>Switches, layout, keycaps.</p>
+          <a class="go" href="#" target="_blank" rel="noopener">View link →</a>
+        </div>
+        <div class="card">
+          <div class="icon-badge">🖱️</div>
+          <h3>Mouse</h3>
+          <p>DPI, grip style, wired/wireless.</p>
+          <a class="go" href="#" target="_blank" rel="noopener">View link →</a>
+        </div>
+        <div class="card">
+          <div class="icon-badge">🪑</div>
+          <h3>Chair &amp; Desk</h3>
+          <p>Standing desk, chair model, cable management.</p>
+          <a class="go" href="#" target="_blank" rel="noopener">View link →</a>
+        </div>
+      </div>
     </div>
-    <div class="grid">
-      <div class="card">
-        <div class="icon">📱</div>
-        <h3>Phone</h3>
-        <p>What you carry, case, accessories.</p>
-        <a class="go" href="#" target="_blank" rel="noopener">View link →</a>
+  </section>
+
+  <section id="electronics" class="bg-white">
+    <div class="section-inner">
+      <div class="section-head">
+        <span class="eyebrow">Tech</span>
+        <div class="section-title">Electronics</div>
       </div>
-      <div class="card">
-        <div class="icon">🎧</div>
-        <h3>Headphones</h3>
-        <p>Everyday cans or earbuds.</p>
-        <a class="go" href="#" target="_blank" rel="noopener">View link →</a>
+      <div class="grid">
+        <div class="card">
+          <div class="icon-badge">📱</div>
+          <h3>Phone</h3>
+          <p>What you carry, case, accessories.</p>
+          <a class="go" href="#" target="_blank" rel="noopener">View link →</a>
+        </div>
+        <div class="card">
+          <div class="icon-badge">🎧</div>
+          <h3>Headphones</h3>
+          <p>Everyday cans or earbuds.</p>
+          <a class="go" href="#" target="_blank" rel="noopener">View link →</a>
+        </div>
+        <div class="card">
+          <div class="icon-badge">💻</div>
+          <h3>Laptop</h3>
+          <p>Daily driver specs and why.</p>
+          <a class="go" href="#" target="_blank" rel="noopener">View link →</a>
+        </div>
+        <div class="card">
+          <div class="icon-badge">🔌</div>
+          <h3>Accessories</h3>
+          <p>Chargers, hubs, cables, gadgets you actually use.</p>
+          <a class="go" href="#" target="_blank" rel="noopener">View link →</a>
+        </div>
       </div>
-      <div class="card">
-        <div class="icon">💻</div>
-        <h3>Laptop</h3>
-        <p>Daily driver specs and why.</p>
-        <a class="go" href="#" target="_blank" rel="noopener">View link →</a>
+    </div>
+  </section>
+
+  <section class="bg-alt cta-section">
+    <div class="section-inner">
+      <div class="section-head">
+        <span class="eyebrow">Say Hi</span>
+        <div class="section-title">More Trips, More Gear, More Stories Coming</div>
+        <p class="section-sub">Got a state I should hit next, or a setup tip I'm missing? I'm always up for it.</p>
       </div>
-      <div class="card">
-        <div class="icon">🔌</div>
-        <h3>Accessories</h3>
-        <p>Chargers, hubs, cables, gadgets you actually use.</p>
-        <a class="go" href="#" target="_blank" rel="noopener">View link →</a>
+      <div class="cta-links">
+        <a class="btn dark" href="#" target="_blank" rel="noopener" id="igLink3">Say Hi on Instagram</a>
+        <a class="btn outline" style="color:var(--text);border-color:var(--border);" href="#map">See the Map Again</a>
       </div>
     </div>
   </section>
@@ -612,15 +584,46 @@
 </main>
 
 <footer>
-  <div class="brand mono">SURYA EPIC</div>
-  © <span id="year"></span> · Onward, always
-  <div class="foot-socials">
-    <a href="#" target="_blank" rel="noopener" aria-label="Instagram" id="igLink3">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
-    </a>
-    <a href="#" target="_blank" rel="noopener" aria-label="YouTube" id="ytLink3">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="2.5" y="5.5" width="19" height="13" rx="4"/><path d="M10.5 9.5v5l4.5-2.5-4.5-2.5Z" fill="currentColor" stroke="none"/></svg>
-    </a>
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <div class="brand">
+        <span class="badge">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+            <circle cx="12" cy="12" r="9"/>
+            <path d="M15.5 8.5 13 13l-4.5 2.5L11 11l4.5-2.5Z" fill="currentColor" stroke="none"/>
+          </svg>
+        </span>
+        SURYA <span>EPIC</span>
+      </div>
+      <p>Traveler, athlete and gear nerd. Chasing new horizons one state, one shuttlecock, one setup at a time.</p>
+      <div class="footer-socials">
+        <a href="#" target="_blank" rel="noopener" aria-label="Instagram" id="igLink4">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
+        </a>
+        <a href="#" target="_blank" rel="noopener" aria-label="YouTube" id="ytLink3">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="2.5" y="5.5" width="19" height="13" rx="4"/><path d="M10.5 9.5v5l4.5-2.5-4.5-2.5Z" fill="currentColor" stroke="none"/></svg>
+        </a>
+      </div>
+    </div>
+    <div class="footer-cols">
+      <div class="footer-col">
+        <h4>Explore</h4>
+        <a href="#map">States Explored</a>
+        <a href="#log">Trip Log</a>
+        <a href="#badminton">Badminton</a>
+        <a href="#desk">Desk Setup</a>
+        <a href="#electronics">Electronics</a>
+      </div>
+      <div class="footer-col">
+        <h4>Connect</h4>
+        <a href="#" target="_blank" rel="noopener" id="igLink5">Instagram</a>
+        <a href="#" target="_blank" rel="noopener" id="ytLink4">YouTube</a>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© <span id="year"></span> Surya Epic</span>
+    <span>Onward, always</span>
   </div>
 </footer>
 
@@ -642,29 +645,11 @@
   toggle.addEventListener('click', () => links.classList.toggle('open'));
   links.querySelectorAll('a').forEach(a => a.addEventListener('click', () => links.classList.remove('open')));
 
-  const root = document.documentElement;
-  const themeBtn = document.getElementById('themeToggle');
-  function applyTheme(theme){
-    root.setAttribute('data-theme', theme);
-    try{ localStorage.setItem('theme', theme); }catch(e){}
-  }
-  let saved = null;
-  try{ saved = localStorage.getItem('theme'); }catch(e){}
-  if(saved){
-    applyTheme(saved);
-  } else if(window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches){
-    applyTheme('light');
-  }
-  themeBtn.addEventListener('click', () => {
-    const current = root.getAttribute('data-theme') === 'light' ? 'light' : 'dark';
-    applyTheme(current === 'light' ? 'dark' : 'light');
-  });
-
   // SOCIAL LINKS — update these two values with your real profile URLs
   const INSTAGRAM_URL = "#";
   const YOUTUBE_URL = "#";
-  ['igLink','igLink2','igLink3'].forEach(id => document.getElementById(id).href = INSTAGRAM_URL);
-  ['ytLink','ytLink2','ytLink3'].forEach(id => document.getElementById(id).href = YOUTUBE_URL);
+  ['igLink','igLink2','igLink3','igLink4','igLink5'].forEach(id => document.getElementById(id).href = INSTAGRAM_URL);
+  ['ytLink','ytLink2','ytLink3','ytLink4'].forEach(id => document.getElementById(id).href = YOUTUBE_URL);
 
   // STATES EXPLORED — add a new entry here each time you visit a new state.
   // "cover" is a photo path you can drop into images/states/ — until it exists, a themed gradient + icon shows instead.
